@@ -4,7 +4,7 @@ const dataController = {};
 
 //savings table
 dataController.savings = async (req, res, next) => {
-  console.log("i am in dataController.savings");
+  // console.log("i am in dataController.savings");
   try {
     //change querystr when figured out if we are matching userid or username
     const querystr = 'SELECT * FROM "public"."savings"';
@@ -130,9 +130,9 @@ dataController.savingGoals = async (req, res, next) => {
 
 dataController.newExpense = async (req, res, next) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const expense = req.body;
-    console.log(expense);
+    // console.log(expense);
     querystr = `INSERT INTO transactions (user_id, category, amount, date, "vendorName")
       VALUES(${expense.userID}, '${expense.category}', ${expense.amount}, '${expense.date}', '${expense.vendorName}')`;
 

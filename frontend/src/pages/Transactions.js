@@ -92,7 +92,7 @@ const Transactions = ({ dataTables }) => {
     // }, [dataTables]);
 
 
-    console.log('dataTables Budget: ', budget)
+    // console.log('dataTables Budget: ', budget)
     // const month = dateEnd[0];
     // console.log('month ', month)
     // console.log('d:', d)
@@ -137,7 +137,7 @@ const Transactions = ({ dataTables }) => {
             }
             {filterCategory &&
                 Object.entries(categories).sort((a, b) => b[1] - a[1]).map((category) => {
-                    
+
                     let total = 0;
                     budget.forEach((element) => {
                         if (element.category == category[0]) {
@@ -166,5 +166,3 @@ const Transactions = ({ dataTables }) => {
     )
 }
 export default Transactions;
-
-

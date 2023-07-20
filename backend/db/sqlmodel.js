@@ -13,7 +13,7 @@ db.connect(function (err) {
     if (err) {
       return console.error("error running query", err);
     }
-    console.log("connected to database");
+    // console.log("connected to database");
     // >> output: 2018-08-23T14:02:57.117Z
     // db.end();
   });

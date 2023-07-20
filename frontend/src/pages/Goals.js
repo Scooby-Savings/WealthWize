@@ -24,7 +24,7 @@ const Goals = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("data from goals post req: ", data);
+        // console.log("data from goals post req: ", data);
         const goalsFromDB = [];
         data.forEach((element) => {
           const existingGoal = goalsFromDB.find(
@@ -61,7 +61,7 @@ const Goals = () => {
         <select onChange={(e) => handleOnChange(e.target.value)}>
           {goals &&
             goals.map((goal) => {
-              console.log("this is the GOAL", goal);
+              // console.log("this is the GOAL", goal);
               return (
                 <>
                   <option>{goal.category}</option>
