@@ -17,6 +17,7 @@ exports.login = async (req, res, next) => {
     const { username, password } = req.body;
     const queryStr = `SELECT * FROM users WHERE username = '${username}';`;
     const result = await db.query(queryStr);
+    console.log(result.rows[0]);
     // await bcrypt.compare(password, result.rows[0].password)
     if (password === result.rows[0].password) {
       res.status(200).json({
@@ -37,7 +38,7 @@ exports.signup = async (req, res, next) => {
   try {
     const { name, username, password } = req.body;
     const hashed = await bcrypt.hash(password, 10);
-    // console.log("this is the hashed password", hashed);
+    console.log("this is the hashed password", hashed);
     const queryStrCreate = `INSERT INTO users (name, username, password) VALUES ('${name}', '${username}', '${hashed}');`;
     await db.query(queryStrCreate);
     const queryStrRetrieve = `SELECT * FROM users WHERE username = '${username}';`;
@@ -58,6 +59,7 @@ exports.protectRoute = async (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
+  console.log("This is the authHeader", authHeader);
 
   // CHECK IF TOKEN EXISTS
   if (!token) {
@@ -71,5 +73,7 @@ exports.protectRoute = async (req, res, next) => {
   const queryStrRetrieve = `SELECT * FROM users WHERE id = '${decoded.user_id}';`;
   const currUser = await db.query(queryStrRetrieve);
   if (!currUser) return next("user no longer exists");
+  // console.log(currUser);
+  // req.user = currUser;
   next();
 };

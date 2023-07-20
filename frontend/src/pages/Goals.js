@@ -24,6 +24,7 @@ const Goals = () => {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log("data from goals post req: ", data);
         const goalsFromDB = [];
         data.forEach((element) => {
           const existingGoal = goalsFromDB.find(
@@ -39,6 +40,7 @@ const Goals = () => {
             });
           }
         });
+        // console.log('goalsFromDB: ', goalsFromDB)
         setGoals(goalsFromDB);
         setDropDown(goalsFromDB[0].category);
       })
@@ -49,6 +51,9 @@ const Goals = () => {
     setDropDown(value);
   };
 
+  // console.log('dropDown: ', dropDown)
+  // console.log('goals: ', goals)
+
   return (
     <div className="Goals">
       <div className="goal-header">
@@ -56,6 +61,7 @@ const Goals = () => {
         <select onChange={(e) => handleOnChange(e.target.value)}>
           {goals &&
             goals.map((goal) => {
+              console.log("this is the GOAL", goal);
               return (
                 <>
                   <option>{goal.category}</option>

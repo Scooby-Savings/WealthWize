@@ -5,6 +5,7 @@ const Overview =({dataTables})=>{
 
 const [total, setTotal] = useState(null);
 const [accounts, setAccounts] = useState({checking:5000, savings:0});
+// console.log(dataTables.savings);
 
 
     useEffect(() => {
@@ -25,10 +26,10 @@ const [accounts, setAccounts] = useState({checking:5000, savings:0});
             console.log('Error at Overview.js:', err);
           }
         };
-
+    
         fetchSavings();
       }, [dataTables]);
-
+    
       useEffect(() => {
         if (accounts.checking !== null && accounts.savings !== null) {
           setTotal(accounts.checking + accounts.savings);
@@ -41,9 +42,9 @@ const [accounts, setAccounts] = useState({checking:5000, savings:0});
             <p>Total Amount: </p>
             <h1 className='total'>${total}</h1>
             <div className= 'accounts'>
-            <p>Checking: </p>
+            <p>Checking: </p> 
                 <span>${accounts.checking}</span>
-                <p>Savings: </p>
+                <p>Savings: </p> 
                 <span>${accounts.savings}</span>
             </div>
         </div>

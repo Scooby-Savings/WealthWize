@@ -17,6 +17,7 @@ useEffect(() => {
         if (budgetTable && budgetTable.length > 0) {
           let budgetSum = 0;
           budgetTable.forEach((row) => {
+            // console.log(row);
             budgetSum += row.budget;
           });
           setTotalBudget(budgetSum);
@@ -27,7 +28,7 @@ useEffect(() => {
         console.log('Error at fetchBudget: ', err);
       }
     };
-
+  
     fetchBudget();
   }, [dataTables]);
 //have to grab all the data from the month for the transactions table
@@ -45,7 +46,7 @@ useEffect(()=>{
                 ...row,
                 date: new Date(row.date).toLocaleDateString('en-US')
             }))
-
+        
             //filteredTrans is filtered by last 30 days
 
             //now create function that sums each day, so returned obj will contain
@@ -76,7 +77,7 @@ useEffect(()=>{
     fetchTransactions();
 },[dataTables])
 
-//now generate the summed transactions
+//now generate the summed transactions 
 useEffect(()=>{
 const CumulativeTrans= async()=>{
     let dateArr=[];
@@ -86,7 +87,7 @@ const CumulativeTrans= async()=>{
             const dateString = new Date(date).toLocaleDateString('en-US');
             dateArr.push(dateString);
           }
-
+          
         dateArr.map((date)=>{
             new Date(date).toLocaleDateString('en-US');
         })
@@ -98,13 +99,13 @@ const CumulativeTrans= async()=>{
                 //if this date exists in transactions table then add the amount to sum
                 if (transactions[date]){
                     sum+=transactions[date];
-
+    
                 }
                 cumuTrans[date]=sum;
             })
             return cumuTrans;
         }
-
+        
         let cumuTrans=createcumuTrans(transactions,dateArr);
 
         setSumTrans(cumuTrans);
