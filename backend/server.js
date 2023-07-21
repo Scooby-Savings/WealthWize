@@ -1,9 +1,9 @@
-const db = require("./db/sqlmodel");
-const express = require("express");
-const userRouter = require("./routes/userRoutes.js");
-const dataRoutes = require("./routes/dataRoutes.js");
-const dotenv = require("dotenv");
-const cors = require("cors");
+const db = require('./db/sqlmodel');
+const express = require('express');
+const userRouter = require('./routes/userRoutes.js');
+const dataRoutes = require('./routes/dataRoutes.js');
+const dotenv = require('dotenv');
+const cors = require('cors');
 const app = express();
 const PORT = 3000;
 
@@ -12,7 +12,7 @@ dotenv.config();
 // ALLOWS REQUEST FROM LOCALHOST8080
 app.use(
   cors({
-    origin: "http://localhost:8080",
+    origin: 'http://localhost:8080',
     credentials: true,
     optionsSuccessStatus: 200,
   })
@@ -22,8 +22,8 @@ app.use(
 app.use(express.json());
 
 // ROUTES
-app.use("/api/users", userRouter);
-app.use("/dashboard", dataRoutes, (req, res) => {
+app.use('/api/users', userRouter);
+app.use('/dashboard', dataRoutes, (req, res) => {
   return res.status(200).json({
     savings: res.locals.savings,
     budget: res.locals.budget,
@@ -46,7 +46,7 @@ app.use("/dashboard", dataRoutes, (req, res) => {
 // GLOBAL ERROR HANDLER
 app.use((err, req, res, next) => {
   console.log(err);
-  res.json({ status: "error" });
+  res.json({ status: 'error' });
 });
 
 app.listen(PORT, () => {

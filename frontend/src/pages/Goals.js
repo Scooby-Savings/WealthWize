@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useContext } from "react";
-import ApexDonut from "./donut";
-import { AuthContext } from "../authContext.js";
-import "./goals.css";
-import FilterIcon from "../images/Icons/filter";
+import React, { useEffect, useState, useContext } from 'react';
+import ApexDonut from './donut';
+import { AuthContext } from '../authContext.js';
+import './goals.css';
+import FilterIcon from '../images/Icons/filter';
 
 const Goals = () => {
   const auth = useContext(AuthContext);
@@ -11,15 +11,15 @@ const Goals = () => {
   const [reachedGoal, setReachGoal] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:3000/dashboard/savinggoals", {
-      method: "POST",
+    fetch('http://localhost:3000/dashboard/savinggoals', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${auth.token}`,
       },
       body: JSON.stringify({
-        // userID: auth.userID
-        userID: 1,
+        userID: auth.userID,
+        // userID: 1,
       }),
     })
       .then((response) => response.json())
@@ -50,8 +50,8 @@ const Goals = () => {
   };
 
   return (
-    <div className="Goals">
-      <div className="goal-header">
+    <div className='Goals'>
+      <div className='goal-header'>
         <h1>Goal</h1>
         <select onChange={(e) => handleOnChange(e.target.value)}>
           {goals &&
@@ -63,11 +63,11 @@ const Goals = () => {
               );
             })}
         </select>
-        <span className="filterIcon">
+        <span className='filterIcon'>
           <FilterIcon />
         </span>
       </div>
-      <div className="donut-div">
+      <div className='donut-div'>
         <ApexDonut
           goals={goals}
           dropDown={dropDown}
@@ -77,10 +77,10 @@ const Goals = () => {
           if (goal.category === dropDown) {
             return (
               <>
-                <div className="donut-label">
-                  <h1 id="donut-h1">${goal.goal}</h1>
+                <div className='donut-label'>
+                  <h1 id='donut-h1'>${goal.goal}</h1>
                   {!reachedGoal && (
-                    <p id="donut-p">
+                    <p id='donut-p'>
                       ${goal.goal - goal.total} to {goal.category}
                     </p>
                   )}
