@@ -19,7 +19,7 @@ function BudgetForm({ setSidebar }) {
     const [value, setValue] = useState();
     const [bold, setBold] = useState();
     const auth = useContext(AuthContext);
-    
+
     function useForceUpdate() {
         const [, forceUpdate] = useReducer(x => x + 1, 0);
         return forceUpdate;
@@ -55,6 +55,7 @@ function BudgetForm({ setSidebar }) {
     }
     const handleClick = (event) => {
         console.log('handleClick value: ', event.currentTarget.getAttribute('value'))
+       // event.currentTarget.style ='background-color: red';
         setGoalCategory(event.currentTarget.getAttribute('value'))
     }
 
@@ -62,7 +63,6 @@ function BudgetForm({ setSidebar }) {
     console.log('goal category: ', goalCategory)
     return (
         <div className='category-budget'>
-            {/* <h2>Add your Budget</h2> */}
             {/* <form className='budget-form' onSubmit={(e) => { onSubmitHandler(e.target.value) }}> */}
             <form className='budget-form' onSubmit={onSubmitHandler}>
                 <label for='input'>Add your Budget</label>

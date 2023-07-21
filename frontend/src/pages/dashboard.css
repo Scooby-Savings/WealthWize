@@ -78,9 +78,9 @@
 }
 
 .Sidebar {
-    grid-area: 1 / 6 / 4 / 8;
+/* grid-area: 1 / 6 / 4 / 8; */
+    grid-area: 2 / 3 / span 2 / span 3;
     background-color: #FFF;
-    height: 100vh;
     width: auto;
     z-index: 100;
 }
