@@ -4,6 +4,7 @@ import "./LoginSignupPage.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../authContext";
+import { GoogleLogin } from 'react-google-login';
 
 const Signup = () => {
   const auth = useContext(AuthContext);
@@ -28,6 +29,31 @@ const Signup = () => {
     }
   };
 
+  const onSuccess = async (res) => {
+    console.log("login successful. current user: ", res.profileObj)
+
+    const response = await axios.post(
+      "http://localhost:3000/api/users/googleSignup",
+      {
+        name: res.profileObj.givenName,
+        username: res.profileObj.name
+      }
+    );
+    if (response.data.username){
+      auth.login(
+        res.profileObj.givenName,
+        res.profileObj.name
+      );
+      navigate("/dashboard");
+    }
+  }
+
+  const onFailure = (res) => {
+    console.log("login failed" , res)
+  }
+
+  const clientId = "1084433748458-f117f0kvq4u7ve0vftgkaa97se04q7h3.apps.googleusercontent.com"
+
   return (
     <div className="login-signup-page-container">
       <div
@@ -50,7 +76,16 @@ const Signup = () => {
             <input placeholder="Username" name="username" />
             <input type="password" placeholder="Password" name="password" />
           </div>
-
+          <div id='signInButton'>
+            <GoogleLogin
+              clientId={clientId}
+              buttonText="Sign Up with Google"
+              onSuccess={onSuccess}
+              onFailure={onFailure}
+              cookiePolicy={'single_host_origin'}
+              isSignIn={true}
+            />
+          </div>
           <div>
             Already saving?{" "}
             <span

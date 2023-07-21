@@ -11,7 +11,6 @@ import PlusIcon from "../images/Icons/+.js";
 
 const Dashboard = ({ username }) => {
   const auth = useContext(AuthContext);
-  console.log(" here is the token", auth);
 
   //declare states
   const [dataTables, setDataTables] = useState({});
@@ -21,23 +20,18 @@ const Dashboard = ({ username }) => {
   useEffect(() => {
     const fetchTables = async () => {
       try {
-        // console.log("hello from useEffect");
         const response = await fetch("http://localhost:3000/dashboard", {
           headers: { Authorization: `Bearer ${auth.token}` },
         });
         const jsonData = await response.json();
-        // console.log("here is the jsonDATA", jsonData);
-        // console.log('jsonData', jsonData.savings)
         setDataTables({ ...jsonData });
       } catch (error) {
         console.log("error at fetchTables: ", error);
       }
     };
     fetchTables();
-    // console.log('setTablessworked', dataTables);
   }, [sidebar]);
-  // console.log('setTablessworked', dataTables.budget);
-  console.log("sidebar: ", sidebar);
+  
   return (
     <div className="dashboard">
       <Navbar username={username} />

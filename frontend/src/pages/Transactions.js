@@ -45,7 +45,6 @@ const Transactions = ({ dataTables }) => {
     }
 
     const categoryMaker = () => {
-        // console.log('transactions: ', transactions)
         const categoryObj = [];
         let total = 0;
 
@@ -57,8 +56,6 @@ const Transactions = ({ dataTables }) => {
 
         setCategories(categoryObj)
         setTotal(total);
-        // console.log('categoryObj: ', categoryObj)
-        // console.log('total: ', total)
     };
 
 
@@ -92,14 +89,8 @@ const Transactions = ({ dataTables }) => {
     // }, [dataTables]);
 
 
-    console.log('dataTables Budget: ', budget)
     // const month = dateEnd[0];
-    // console.log('month ', month)
-    // console.log('d:', d)
-    // console.log('dateEnd:', dateEnd)
-    // console.log('dateStart:', dateStart)
-    // console.log('transactions:', transactions)
-    // console.log('categories: ', categories)
+
 
     return (
         <div className='Transactions'>
@@ -120,7 +111,6 @@ const Transactions = ({ dataTables }) => {
                 </div>
             }
             {filterTransaction && transactions.map((transaction) => {
-                // console.log(transaction)
                 return (
                     <>
                         <div className='single-transaction'>
@@ -137,14 +127,13 @@ const Transactions = ({ dataTables }) => {
             }
             {filterCategory &&
                 Object.entries(categories).sort((a, b) => b[1] - a[1]).map((category) => {
-                    
+
                     let total = 0;
                     budget.forEach((element) => {
                         if (element.category == category[0]) {
                             total = element.budget;
                         }
                     });
-                    // console.log(total, category[1])
                     const greenBar = Math.trunc(category[1] / total * 100);
                     const greyBar = 100 - greenBar;
 
@@ -166,5 +155,3 @@ const Transactions = ({ dataTables }) => {
     )
 }
 export default Transactions;
-
-

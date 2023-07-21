@@ -5,6 +5,8 @@ import Signup from "./pages/Signup";
 import LoginPage from "./pages/LoginPage";
 import { AuthContext } from "./authContext";
 import "./index.css";
+import {gapi} from 'gapi-script';
+const clientId = "1084433748458-f117f0kvq4u7ve0vftgkaa97se04q7h3.apps.googleusercontent.com";
 
 function App() {
   const [token, setToken] = useState(false);
@@ -69,10 +71,20 @@ function App() {
         lsData.userID,
         new Date(lsData.expireTime)
       );
-      console.log(window.location.pathname);
       if (window.location.pathname === "/") navigate("/dashboard");
     }
   }, []);
+
+  useEffect(() => {
+    function start(){
+      gapi.client.init({
+        clientId : clientId,
+        scope: ""
+      })
+    };
+
+    gapi.load('client:auth2', start);
+  })
 
   return (
     <>

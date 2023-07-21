@@ -50,17 +50,18 @@ function BudgetForm({ setSidebar }) {
     // useForceUpdate()
 
     const handleChange = (event) => {
-        console.log('handleChange value: ', event.target.value)
         setGoalAmount(event.target.value)
     }
     const handleClick = (event) => {
+<<<<<<< HEAD
         console.log('handleClick value: ', event.currentTarget.getAttribute('value'))
        // event.currentTarget.style ='background-color: red';
+=======
+        // console.log('handleClick value: ', event.currentTarget.getAttribute('value'))
+>>>>>>> dev
         setGoalCategory(event.currentTarget.getAttribute('value'))
     }
 
-    console.log('goal: ', goalAmount)
-    console.log('goal category: ', goalCategory)
     return (
         <div className='category-budget'>
             {/* <form className='budget-form' onSubmit={(e) => { onSubmitHandler(e.target.value) }}> */}
