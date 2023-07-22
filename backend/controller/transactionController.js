@@ -43,6 +43,7 @@ transactionController.goalTracker = async (req, res, next) => {
 };
 
 transactionController.budgetSetter = async (req, res, next) => {
+
   try {
     const query = `
         UPDATE budget
