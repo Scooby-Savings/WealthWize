@@ -62,7 +62,7 @@ const Signup = () => {
           backgroundImage: `url(${landingImage})`,
         }}
       >
-        <div className="website-title">WealthWize</div>
+        <div className="website-title">Scooby Savings</div>
       </div>
       <div className="form-box">
         <form className="form" onSubmit={handleSubmit}>
@@ -89,7 +89,7 @@ const Signup = () => {
           <div>
             Already saving?{" "}
             <span
-              className="bold"
+              className='bold'
               onClick={() => {
                 navigate("/");
               }}

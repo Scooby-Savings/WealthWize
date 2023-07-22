@@ -91,7 +91,7 @@ function ExpenseForm({ setSidebar, setRerender }) {
 
             {/* <div className="inputs"> */}
             <form className="budget-form" onSubmit={handleSubmit}>
-                <label>Add your Expense</label>
+                <label>Add an expense</label>
                 <input placeholder="Amount" value={expenseAmount} onChange={(e) => { handleAmount(e.target.value) }}></input>
                 <input placeholder="Vendor" value={vendorName} onChange={(e) => { handleVendor(e.target.value) }}></input>
                 <input type="date" value={date}

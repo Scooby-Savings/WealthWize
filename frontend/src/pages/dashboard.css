@@ -83,6 +83,10 @@
     background-color: #FFF;
     width: auto;
     z-index: 100;
+    left: 50%;
+    right: 50%;
+    top: 50%;
+    bottom: 50%;
 }
 
 #sidebar-button {

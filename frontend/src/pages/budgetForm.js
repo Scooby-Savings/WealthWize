@@ -53,12 +53,7 @@ function BudgetForm({ setSidebar }) {
         setGoalAmount(event.target.value)
     }
     const handleClick = (event) => {
-<<<<<<< HEAD
-        console.log('handleClick value: ', event.currentTarget.getAttribute('value'))
-       // event.currentTarget.style ='background-color: red';
-=======
         // console.log('handleClick value: ', event.currentTarget.getAttribute('value'))
->>>>>>> dev
         setGoalCategory(event.currentTarget.getAttribute('value'))
     }
 
@@ -66,7 +61,7 @@ function BudgetForm({ setSidebar }) {
         <div className='category-budget'>
             {/* <form className='budget-form' onSubmit={(e) => { onSubmitHandler(e.target.value) }}> */}
             <form className='budget-form' onSubmit={onSubmitHandler}>
-                <label for='input'>Add your Budget</label>
+                <label for='input'>Add a budget</label>
                 {/* <input placeholder='Amount' onChange={(e) => setGoalAmount(e.target.value)}></input> */}
                 <input type='text' placeholder='Amount' onChange={handleChange} value={value}></input>
 
