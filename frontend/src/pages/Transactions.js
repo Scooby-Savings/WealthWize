@@ -119,24 +119,27 @@ const Transactions = ({ dataTables }) => {
                     <input id='week-end' type='date' value={dateEnd} onChange={(e) => { handleEnd(e.target.value) }}></input>
                 </div>
             }
-            {filterTransaction && transactions.map((transaction) => {
+            {filterTransaction && transactions.length>0 && transactions.map((transaction) => {
                 // console.log(transaction)
                 return (
                     <>
-                        <div className='single-transaction'>
-                            <div key={transaction.id} className='transaction-firstline'>
+                    {/* added react fragment so the unique key of transaction.id will be applied to the outermost element */}
+                    {/* <React.Fragment key={transaction.id}> */}
+                        <div className='single-transaction' key={transaction.id}>
+                            <div className='transaction-firstline'>
                                 {/* <p>{transaction.item}</p> */}
                                 <p>{transaction.vendorName}</p>
                                 <p id='transaction-category'>{transaction.category}</p>
                             </div>
                             <p >{transaction.amount}</p>
                         </div>
+                    {/* </React.Fragment> */}
                     </>
                 )
             })
             }
-            {filterCategory &&
-                Object.entries(categories).sort((a, b) => b[1] - a[1]).map((category) => {
+            {filterCategory && Object.keys(categories).length > 0 &&
+                Object.entries(categories).sort((a, b) => b[1] - a[1]).map((category, index) => {
 
                     let total = 0;
                     budget.forEach((element) => {
@@ -149,7 +152,7 @@ const Transactions = ({ dataTables }) => {
                     const greyBar = 100 - greenBar;
 
                     return (
-                        <div className='categories'>
+                        <div key={index} className='categories'>
                             <div className='category-data'>
                                 <div>{category[0]}</div>
                                 <div>${category[1]}</div>

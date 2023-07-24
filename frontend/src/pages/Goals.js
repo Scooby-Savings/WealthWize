@@ -59,12 +59,12 @@ const Goals = () => {
       <div className="goal-header">
         <h1>Goal</h1>
         <select onChange={(e) => handleOnChange(e.target.value)}>
-          {goals &&
+          {goals.length > 0 &&  // checking whether goals is empty to prevent any errors while trying to access its elements
             goals.map((goal) => {
               // console.log("this is the GOAL", goal);
               return (
                 <>
-                  <option>{goal.category}</option>
+                  <option key={goal.category}>{goal.category}</option>
                 </>
               );
             })}
@@ -74,27 +74,31 @@ const Goals = () => {
         </span>
       </div>
       <div className="donut-div">
-        <ApexDonut
-          goals={goals}
-          dropDown={dropDown}
-          setReachGoal={setReachGoal}
-        />
-        {goals.map((goal) => {
-          if (goal.category === dropDown) {
-            return (
-              <>
-                <div className="donut-label">
-                  <h1 id="donut-h1">${goal.goal}</h1>
-                  {!reachedGoal && (
-                    <p id="donut-p">
-                      ${goal.goal - goal.total} to {goal.category}
-                    </p>
-                  )}
-                </div>
-              </>
-            );
-          }
-        })}
+        {goals.length > 0 && dropDown && ( // checking whether goals is empty to prevent any errors while trying to access its elements
+          <>
+          <ApexDonut
+            goals={goals}
+            dropDown={dropDown}
+            setReachGoal={setReachGoal}
+          />
+          {goals.map((goal) => {
+            if (goal.category === dropDown) {
+              return (
+                <>
+                  <div className="donut-label">
+                    <h1 id="donut-h1">${goal.goal}</h1>
+                    {!reachedGoal && (
+                      <p id="donut-p">
+                        ${goal.goal - goal.total} to {goal.category}
+                      </p>
+                    )}
+                  </div>
+                </>
+              );
+            }
+          })}
+          </>
+        )}
       </div>
     </div>
   );
