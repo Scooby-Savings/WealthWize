@@ -37,7 +37,9 @@ function GoalForm({ setSidebar }) {
       <label>Add a goal</label>
       <input placeholder="Goal Title" onChange={handleGoalChange} />
       <input placeholder="Amount" onChange={handleAmountChange} />
-      <button type="submit">Submit</button>
+      <div className='submit-container'>
+        <button type="submit" className='submit-button'>Submit</button>
+      </div>
     </form>
   );
 }
