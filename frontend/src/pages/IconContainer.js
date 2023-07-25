@@ -8,6 +8,7 @@ import UtilitiesIcon from '../images/Icons/utilities';
 import MedicalIcon from '../images/Icons/medical';
 import TransportationIcon from '../images/Icons/transportation';
 import HousingIcon from '../images/Icons/housing';
+import IconButton from './IconButton';
 
 const IconContainer = ({ setCategory }) => {
 
@@ -37,42 +38,69 @@ const IconContainer = ({ setCategory }) => {
   
   return (
     <div className='category-buttons category-buttons-expense'>
-      <div>
-          <button style={{backgroundColor: iconBackgroundColors.Groceries}} value="Groceries" onClick={(e) => handleIconClick(e)}><GroceriesIcon /></button>
-          <p>Grocery</p>
-      </div>
-      <div>
-          <button style={{backgroundColor: iconBackgroundColors.Dining}} value="Dining" onClick={(e) => handleIconClick(e)}><DiningIcon /></button>
-          <p>Dining</p>
-      </div>
-      <div>
-          <button style={{backgroundColor: iconBackgroundColors.Entertainment}} value="Entertainment" onClick={(e) => handleIconClick(e)}><EntertainmentIcon /></button>
-          <p>Entertainment</p>
-      </div>
-      <div>
-          <button style={{backgroundColor: iconBackgroundColors.Clothing}} value="Clothing" onClick={(e) => handleIconClick(e)}><ClothingIcon /></button>
-          <p>Clothing</p>
-      </div>
-      <div>
-          <button style={{backgroundColor: iconBackgroundColors.Subscriptions}} value="Subscriptions" onClick={(e) => handleIconClick(e)}><SubscriptionIcon /></button>
-          <p>Subscriptions</p>
-      </div>
-      <div>
-          <button style={{backgroundColor: iconBackgroundColors.Utilities}} value="Utilities" onClick={(e) => handleIconClick(e)}><UtilitiesIcon /></button>
-          <p>Utilites</p>
-      </div>
-      <div>
-          <button style={{backgroundColor: iconBackgroundColors.Medical}} value="Medical" onClick={(e) => handleIconClick(e)}><MedicalIcon /></button>
-          <p>Medical</p>
-      </div>
-      <div>
-          <button style={{backgroundColor: iconBackgroundColors.Transportation}} value="Transportation" onClick={(e) => handleIconClick(e)}><TransportationIcon /></button>
-          <p>Transportation</p>
-      </div>
-      <div>
-          <button style={{backgroundColor: iconBackgroundColors.Housing}} value="Housing" onClick={(e) => handleIconClick(e)}><HousingIcon /></button>
-          <p>Housing</p>
-      </div>
+      <IconButton
+        backgroundColor={iconBackgroundColors.Groceries}
+        value='Groceries'
+        image={<GroceriesIcon />}
+        handleClick={handleIconClick}
+        text='Grocery'
+      />
+      <IconButton
+        backgroundColor={iconBackgroundColors.Dining}
+        value='Dining'
+        image={<DiningIcon />}
+        handleClick={handleIconClick}
+        text='Dining'
+      />
+      <IconButton 
+        backgroundColor={iconBackgroundColors.Entertainment}
+        value='Entertainment'
+        image={<EntertainmentIcon />}
+        handleClick={handleIconClick}
+        text='Entertainment'
+      />
+      <IconButton
+        backgroundColor={iconBackgroundColors.Clothing}
+        value='Clothing'
+        image={<ClothingIcon />}
+        handleClick={handleIconClick}
+        text='Clothing'
+      />
+      <IconButton
+        backgroundColor={iconBackgroundColors.Subscriptions}
+        value='Subscriptions'
+        image={<SubscriptionIcon />}
+        handleClick={handleIconClick}
+        text='Subscriptions'
+      />
+      <IconButton
+        backgroundColor={iconBackgroundColors.Utilities}
+        value='Utilities'
+        image={<UtilitiesIcon />}
+        handleClick={handleIconClick}
+        text='Utilities'
+      />
+      <IconButton
+        backgroundColor={iconBackgroundColors.Medical}
+        value='Medical'
+        image={<MedicalIcon />}
+        handleClick={handleIconClick}
+        text='Medical'
+      />
+      <IconButton
+        backgroundColor={iconBackgroundColors.Transportation}
+        value='Transportation'
+        image={<TransportationIcon />}
+        handleClick={handleIconClick}
+        text='Transportation'
+      />
+      <IconButton
+        backgroundColor={iconBackgroundColors.Housing}
+        value='Housing'
+        image={<HousingIcon />}
+        handleClick={handleIconClick}
+        text='Housing'
+      />
     </div>
   );
 };
