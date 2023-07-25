@@ -66,7 +66,7 @@ export default function ApexDonut({ goals, dropDown }) {
                     donut: {
                         size: '80%',
                         label: {
-                            show: false
+                            show: true
                         }
                     }
                 }

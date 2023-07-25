@@ -63,7 +63,7 @@ option:hover {
 
 .apexcharts-canvas {
     background-color: transparent;
-
+    color: blue;
 }
 
 .donut-label {
