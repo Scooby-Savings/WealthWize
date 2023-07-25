@@ -17,6 +17,7 @@ function GoalForm({ setSidebar }) {
           user_id: auth.userID,
           goal,
           amount,
+          action: 'add',
         }
       );
     } catch (err) {
@@ -32,7 +33,7 @@ function GoalForm({ setSidebar }) {
         {
           user_id: auth.userID,
           goal,
-          amount,
+          action: 'remove',
         }
       );
     } catch (err) {
