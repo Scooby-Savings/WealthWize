@@ -15,7 +15,7 @@ const Navbar = ({ username }) => {
 
   return (
     <div className="Navbar">
-      <div className="logo">WealthWize</div>
+      <div className="logo">Scooby Savings</div>
       <div className="navbar-items">
         <NotificationIcon onClick={() => {}} />
         <div className="user">

@@ -19,13 +19,14 @@ const Sidebar = ({ setSidebar, setRerender }) => {
   const [expenseSelection, setExpenseSelection] = useState(true);
   const [budgetSelection, setBudgetSelection] = useState(false);
   const [goalSelection, setGoalSelection] = useState(false);
+  const clearedTitleColors = {expense: '', budget: '', goal: ''};
+  const [titleColors, setTitleColors] = useState({expense: '#E65100', budget: '', goal: ''});
 
   //handle onClick event when expense/goal/ or budget is clicked
   const handleSideBarSelection = (value) => {
-    const selected = value;
-    value === "expense"
-      ? setExpenseSelection(true)
-      : setExpenseSelection(false);
+    setTitleColors({...clearedTitleColors, [value]:'#E65100'});
+
+    value === "expense" ? setExpenseSelection(true) : setExpenseSelection(false);
     value === "budget" ? setBudgetSelection(true) : setBudgetSelection(false);
     value === "goal" ? setGoalSelection(true) : setGoalSelection(false);
   };
@@ -41,6 +42,7 @@ const Sidebar = ({ setSidebar, setRerender }) => {
       <div className="sidebar-content">
         <div className="sidebar-selection">
           <button
+            style={{color: titleColors.expense}}
             className="expense"
             value="expense"
             onClick={(e) => handleSideBarSelection(e.target.value)}
@@ -48,6 +50,7 @@ const Sidebar = ({ setSidebar, setRerender }) => {
             Expense
           </button>
           <button
+          style={{color: titleColors.budget}}
             className="budget"
             value="budget"
             onClick={(e) => handleSideBarSelection(e.target.value)}
@@ -55,6 +58,7 @@ const Sidebar = ({ setSidebar, setRerender }) => {
             Budget
           </button>
           <button
+            style={{color: titleColors.goal}}
             className="goal"
             value="goal"
             onClick={(e) => handleSideBarSelection(e.target.value)}

@@ -62,10 +62,9 @@ function BudgetForm({ setSidebar }) {
     // console.log('goal category: ', goalCategory)
     return (
         <div className='category-budget'>
-            {/* <h2>Add your Budget</h2> */}
             {/* <form className='budget-form' onSubmit={(e) => { onSubmitHandler(e.target.value) }}> */}
             <form className='budget-form' onSubmit={onSubmitHandler}>
-                <label for='input'>Add your Budget</label>
+                <label for='input'>Add a budget</label>
                 {/* <input placeholder='Amount' onChange={(e) => setGoalAmount(e.target.value)}></input> */}
                 <input type='text' placeholder='Amount' onChange={handleChange} value={value}></input>
 

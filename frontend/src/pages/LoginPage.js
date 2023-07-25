@@ -4,13 +4,42 @@ import "./LoginSignupPage.css";
 import { AuthContext } from "../authContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { GoogleLogin } from 'react-google-login';
 
 function LoginPage() {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-
+  const clientId = "1084433748458-f117f0kvq4u7ve0vftgkaa97se04q7h3.apps.googleusercontent.com"
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+
+  const onSuccess = async (res) => {
+      try {
+        const name = res.profileObj.givenName;
+        const username = res.profileObj.name;
+        const response = await axios.post(
+          "http://localhost:3000/api/users/googleLogin",
+          {
+            name,
+            username,
+          }
+        );
+        if (response.data.token) {
+          auth.login(
+            name,
+            username,
+          );
+          navigate("/dashboard");
+        }
+    } catch (err) {
+      console.log(err)
+    }
+  };
+
+  const onFailure = (res) => {
+    console.log("login failed" , res)
+  }
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -50,7 +79,7 @@ function LoginPage() {
           backgroundImage: `url(${landingImage})`,
         }}
       >
-        <div className="website-title">WealthWize</div>
+        <div className="website-title">Scooby Savings</div>
       </div>
       <div className="form-box">
         <div className="form">
@@ -61,6 +90,16 @@ function LoginPage() {
               type="password"
               placeholder="Password"
               onChange={handlePasswordChange}
+            />
+          </div>
+          <div id='signInButton'>
+            <GoogleLogin
+              clientId={clientId}
+              buttonText="Login"
+              onSuccess={onSuccess}
+              onFailure={onFailure}
+              cookiePolicy={'single_host_origin'}
+              isSignIn={true}
             />
           </div>
 

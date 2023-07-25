@@ -2,8 +2,7 @@ import Chart from "react-apexcharts";
 import React, { useEffect, useState} from "react";
 
 export default function ApexDonut({ goals, dropDown }) {
-    // console.log('goals: ', goals)
-    // console.log('dropdown: ', dropDown)
+
 
     const [reachGoal, setReachGoal] = useState(false);
 
@@ -15,8 +14,6 @@ export default function ApexDonut({ goals, dropDown }) {
         }
         return [0, 100] // return default values if no matching goal values are found
     })
-
-    // console.log('series: ', series)
 
     useEffect(() => {
         if (series[0] < 100) {

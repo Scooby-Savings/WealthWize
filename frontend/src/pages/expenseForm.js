@@ -17,7 +17,18 @@ function ExpenseForm({ setSidebar, setRerender }) {
     //this is the userID;
     const userID = auth.userID;
     const d = new Date();
-
+    const clearedButtonBackgrounds = {
+      Groceries: '', 
+      Dining: '',
+      Entertainment: '',
+      Clothing: '',
+      Subscription: '',
+      Utilities: '',
+      Medical: '',
+      Transportation: '',
+      Housing: '',
+    };
+    const [buttonBackgrounds, setButtonBackgrounds] = useState(clearedButtonBackgrounds);
     const [category, setCategory] = useState();
     const [expenseAmount, setExpenseAmount] = useState();
     const [vendorName, setVendorName] = useState();
@@ -26,6 +37,9 @@ function ExpenseForm({ setSidebar, setRerender }) {
     //category selection
     const handleButtonClick = (event) => {
         event.preventDefault();
+        const buttonCategory = event.currentTarget.getAttribute('value');
+
+        setButtonBackgrounds({...clearedButtonBackgrounds, [buttonCategory]: '#FFCC80'});
         setCategory(event.currentTarget.getAttribute('value'));
     }
 
@@ -77,7 +91,7 @@ function ExpenseForm({ setSidebar, setRerender }) {
 
             {/* <div className="inputs"> */}
             <form className="budget-form" onSubmit={handleSubmit}>
-                <label>Add your Expense</label>
+                <label>Add an expense</label>
                 <input placeholder="Amount" value={expenseAmount} onChange={(e) => { handleAmount(e.target.value) }}></input>
                 <input placeholder="Vendor" value={vendorName} onChange={(e) => { handleVendor(e.target.value) }}></input>
                 <input type="date" value={date}
@@ -86,46 +100,44 @@ function ExpenseForm({ setSidebar, setRerender }) {
                 {/* </div> */}
                 <div className='category-buttons-expense'>
                     <div>
-                        <button value="Groceries" onClick={(e) => { handleButtonClick(e) }}><GroceriesIcon /></button>
+                        <button style={{backgroundColor: buttonBackgrounds.Groceries}} className='category-button' value="Groceries" onClick={(e) => { handleButtonClick(e) }}><GroceriesIcon /></button>
                         <p>Grocery</p>
                     </div>
                     <div>
-                        <button value="Dining" onClick={(e) => { handleButtonClick(e) }}> <DiningIcon /></button>
+                        <button style={{backgroundColor: buttonBackgrounds.Dining}} value="Dining" onClick={(e) => { handleButtonClick(e) }}> <DiningIcon /></button>
                         <p>Dining</p>
                     </div>
                     <div>
-                        <button value="Entertainment" onClick={(e) => { handleButtonClick(e) }}><EntertainmentIcon /></button>
+                        <button style={{backgroundColor: buttonBackgrounds.Entertainment}} value="Entertainment" onClick={(e) => { handleButtonClick(e) }}><EntertainmentIcon /></button>
                         <p>Entertainment</p>
                     </div>
                     <div>
-                        <button value="Clothing" onClick={(e) => { handleButtonClick(e) }}><ClothingIcon /></button>
+                        <button style={{backgroundColor: buttonBackgrounds.Clothing}} value="Clothing" onClick={(e) => { handleButtonClick(e) }}><ClothingIcon /></button>
                         <p>Clothing</p>
                     </div>
                     <div>
-                        <button value="Subscriptions" onClick={(e) => { handleButtonClick(e) }}><SubscriptionIcon /></button>
+                        <button style={{backgroundColor: buttonBackgrounds.Subscriptions}} value="Subscriptions" onClick={(e) => { handleButtonClick(e) }}><SubscriptionIcon /></button>
                         <p>Subscription</p>
                     </div>
                     <div>
-                        <button value="Utilities" onClick={(e) => { handleButtonClick(e) }}><UtilitiesIcon /></button>
+                        <button style={{backgroundColor: buttonBackgrounds.Utilities}} value="Utilities" onClick={(e) => { handleButtonClick(e) }}><UtilitiesIcon /></button>
                         <p>Utilites</p>
                     </div>
                     <div>
-                        <button value="Medical" onClick={(e) => { handleButtonClick(e) }}><MediaclIcon /></button>
+                        <button style={{backgroundColor: buttonBackgrounds.Medical}} value="Medical" onClick={(e) => { handleButtonClick(e) }}><MediaclIcon /></button>
                         <p>Medical</p>
                     </div>
                     <div>
-                        <button value="Transportation" onClick={(e) => { handleButtonClick(e) }}><TransportationIcon /></button>
+                        <button style={{backgroundColor: buttonBackgrounds.Transportation}} value="Transportation" onClick={(e) => { handleButtonClick(e) }}><TransportationIcon /></button>
                         <p>Transportation</p>
                     </div>
                     <div>
-                        <button value="Housing" onClick={(e) => { handleButtonClick(e) }}><HousingIcon /></button>
+                        <button style={{backgroundColor: buttonBackgrounds.Housing}} value="Housing" onClick={(e) => { handleButtonClick(e) }}><HousingIcon /></button>
                         <p>Housing</p>
                     </div>
                 </div>
-                <div >
-                    {/* <button className="submit-button" onClick={() => { handleSubmit() }}> Submit</button> */}
+                <div style={{display: 'flex', justifyContent: 'center'}}>
                     <button type='submit' className="submit-button" > Submit</button>
-
                 </div>
             </form>
         </div>)
