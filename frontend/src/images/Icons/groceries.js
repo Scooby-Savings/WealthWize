@@ -1,6 +1,6 @@
 import React from 'react';
 
-const GroceriesIcon = ({ GroceriesIcon }) => {
+const GroceriesIcon = () => {
     return (
         <>
             <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">

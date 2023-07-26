@@ -43,19 +43,31 @@ transactionController.goalTracker = async (req, res, next) => {
 };
 
 transactionController.budgetSetter = async (req, res, next) => {
-
   try {
-    const query = `
-        UPDATE budget
-        SET budget = ${req.body.goalAmount}
-        WHERE user_id = ${req.body.userID} AND category= ${req.body.goalCategory} RETURNING *;`;
+    const query1 = `SELECT * FROM budget WHERE user_id = ${req.body.userID} AND category= '${req.body.goalCategory}' `;
+    const rv = await db.query(query1);
+    // console.log('rv', rv, 'req.body.userid', req.body.userID, 'query1', query1);
+    if (rv.rows.length) {
+      const query = `
+          UPDATE budget
+          SET budget = ${req.body.goalAmount}
+          WHERE user_id = ${req.body.userID} AND category= '${req.body.goalCategory}' RETURNING *;`;
 
-    const result = await db.query(query);
-
-    if (!result) {
-      next('no db result');
+      const result = await db.query(query);
+      if (!result) {
+        next('no db result');
+      } else {
+        res.status(200);
+      }
     } else {
-      res.status(200);
+      const query = `INSERT INTO budget (user_id, category, budget) VALUES (${req.body.userID}, '${req.body.goalCategory}',${req.body.goalAmount})`;
+      // console.log('query2', query);
+      const result = await db.query(query);
+      if (!result) {
+        next('no db result');
+      } else {
+        res.status(200);
+      }
     }
   } catch (err) {
     next(err);
