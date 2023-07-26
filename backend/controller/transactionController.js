@@ -26,7 +26,7 @@ transactionController.goalTracker = async (req, res, next) => {
     const query = `SELECT *
         FROM savings_goals
         LEFT JOIN savings ON savings_goals.user_id = savings.user_id
-        AND savings_goals.category = savings.category 
+        AND savings_goals.category = savings.category
         WHERE savings_goals.user_id = ${req.body.userID};`;
     // WHERE savings_goals.user_id = '${req.body.userID}';`;
 
