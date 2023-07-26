@@ -118,10 +118,6 @@
     opacity: 0.1;
 }
 
-/* .category-buttons button:hover {
-    border: 5px solid rgba(0, 0, 0, 0.10);
-} */
-
 .category-buttons p {
     padding-top: 16px;
 }
@@ -155,4 +151,9 @@
   min-width: 140px;
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   border-radius: 1.5rem;
+}
+
+.submit-container {
+  display: flex;
+  justify-content: center;
 }
