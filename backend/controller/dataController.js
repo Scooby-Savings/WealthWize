@@ -50,12 +50,20 @@ dataController.budget = async (req, res, next) => {
 //savings_goals
 dataController.savings_goals = async (req, res, next) => {
   try {
-    //change querystr when figured out if we are matching userid or username
-    const querystr = `SELECT * FROM "public"."savings_goals" WHERE user_id = ${res.locals.userID}`;
-    const result = await db.query(querystr);
+    let savings_goalsTable;
+    console.log(req.body, 'req.body above');
+    if (req.body.action === 'add') {
+      //change querystr when figured out if we are matching userid or username
+      const querystr = `SELECT * FROM "public"."savings_goals" WHERE user_id = ${res.locals.userID}`;
+      const result = await db.query(querystr);
 
-    const savings_goalsTable = result.rows;
-    console.log('saving goals table: ', savings_goalsTable);
+      savings_goalsTable = result.rows;
+      console.log('saving goals table: ', savings_goalsTable);
+    } else if (req.body.action === 'remove') {
+      const querystr = `DELETE * FROM "public"."savings_goals" WHERE user_id = ${res.locals.userID} AND goal = ${req.body.goal} RETURNING *`;
+      const result = await db.query(querystr);
+      console.log('deleted row:', result);
+    }
     // let savingsSum=0;
     // savingstable.forEach(row=>{
     //     savingsSum+=row.amount;
@@ -110,14 +118,23 @@ dataController.users = async (req, res, next) => {
 
 dataController.savingGoals = async (req, res, next) => {
   try {
-    const { user_id, goal, amount } = req.body;
-    const qryStr1 = `INSERT INTO savings_goals (user_id, category, goal)
-  VALUES (${user_id}, '${goal}', ${amount});`;
-    const qryStr2 = `INSERT INTO savings (user_id, category, amount, date)
-  VALUES (${user_id}, '${goal}', 0, current_date);`;
-    const result1 = await db.query(qryStr1);
-    const result2 = await db.query(qryStr2);
-    res.sendStatus(200);
+    if (req.body.action === 'add') {
+      console.log('req.body: ', req.body);
+      const { user_id, goal, amount } = req.body;
+      const qryStr1 = `INSERT INTO savings_goals (user_id, category, goal)
+    VALUES (${user_id}, '${goal}', ${amount});`;
+      const qryStr2 = `INSERT INTO savings (user_id, category, amount, date)
+    VALUES (${user_id}, '${goal}', 0, current_date);`;
+      const result1 = await db.query(qryStr1);
+      const result2 = await db.query(qryStr2);
+      res.sendStatus(200);
+    } else if (req.body.action === 'remove') {
+      const { user_id, goal } = req.body;
+      console.log('goal', goal);
+      const qry = `DELETE FROM savings_goals WHERE user_id = ${user_id} AND category = '${goal}' RETURNING *`;
+      const result = await db.query(qry);
+      console.log('deleted:', result);
+    }
   } catch (err) {
     next(err);
   }
