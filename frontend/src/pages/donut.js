@@ -22,11 +22,7 @@ export default function ApexDonut({ goals, dropDown }) {
             setReachGoal(true);
         }
     }, [series]);
-        const options = { //data on the x-axis
-            // chart: { id: 'donut' },
-            // xaxis: {
-            //     categories: []
-            // }
+        const options = {
             chart: {
                 type: 'donut',
                 // background: 'red',
@@ -46,7 +42,8 @@ export default function ApexDonut({ goals, dropDown }) {
                     }
                 }
             }],
-            colors: ['#1E9700', '#EBEBEB'],
+            // colors: ['#1E9700', '#EBEBEB'],
+            colors: ['#bb779b', '#EBEBEB'],
             stroke: {
                 show: false,
                 width: 0
