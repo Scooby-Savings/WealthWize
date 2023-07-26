@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
-
+import React from 'react';
 import './Overview.css';
+
 const Overview = ({ dataTables }) => {
   console.log('OVERVIEW');
   console.log(dataTables);
