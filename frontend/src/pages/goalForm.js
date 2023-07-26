@@ -64,6 +64,7 @@ function GoalForm({ setSidebar }) {
         <button type='submit'>Remove</button>
       </form>
     </>
+
   );
 }
 
