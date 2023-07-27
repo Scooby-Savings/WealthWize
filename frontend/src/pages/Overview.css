@@ -1,46 +1,46 @@
 .Overview{
-    background-color: #E8E5E2;
-    margin-left: 40px;
+  background-color: #E8E5E2;
+  margin-left: 40px;
 }
 .Overview p{
-    background-color: #E8E5E2;
-    font-family: Inter;
-font-size: 16px;
-font-style: normal;
-font-weight: 500;
-line-height: 100%;
-letter-spacing: -0.64px;
-margin-bottom:20px;
+  background-color: #E8E5E2;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.64px;
+  margin-bottom:20px;
 }
 .total{
-    background-color: #E8E5E2;
-color: #0A0909;
-font-family: Inter;
-font-size: 112px;
-font-style: normal;
-font-weight: 600;
-line-height: 100%;
-letter-spacing: -8.96px;
-margin-bottom:25px;
+  background-color: #E8E5E2;
+  color: #0A0909;
+  font-family: Inter;
+  font-size: 112px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: -8.96px;
+  margin-bottom:25px;
 }
 .accounts{
-    background-color: #E8E5E2;
-    display:flex;
-    width:350px;
-    justify-content:flex-start;
-    color: #0A0909;
-font-family: Inter;
-font-size: 16px;
-font-style: normal;
-font-weight: 500;
-line-height: 100%;
-letter-spacing: -0.64px;
+  background-color: #E8E5E2;
+  display:flex;
+  width:350px;
+  justify-content:flex-start;
+  color: #0A0909;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.64px;
 }
 .accounts p{
-    background-color: #E8E5E2;
+  background-color: #E8E5E2;
 }
 span{
-    background-color: #E8E5E2;
-    margin-right:36px
+  background-color: #E8E5E2;
+  margin-right:36px
 }
 
