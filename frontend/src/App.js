@@ -71,6 +71,7 @@ function App() {
         lsData.userID,
         new Date(lsData.expireTime)
       );
+      // console.log(window.location.pathname);
       if (window.location.pathname === "/") navigate("/dashboard");
     }
   }, []);

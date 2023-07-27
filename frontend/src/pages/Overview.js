@@ -17,7 +17,7 @@ const Overview = ({ dataTables }) => {
 
 
   const total = accounts.savings + accounts.checking;
-  
+
 
   console.log('DATA TABLE SAVINGS', dataTables.savings);
   // const [total, setTotal] = useState(null);

@@ -40,6 +40,7 @@ const Goals = () => {
             });
           }
         });
+        // console.log('goalsFromDB: ', goalsFromDB)
         setGoals(goalsFromDB);
         setDropDown(goalsFromDB[0].category);
       })
@@ -50,14 +51,22 @@ const Goals = () => {
     setDropDown(value);
   };
 
+  // console.log('dropDown: ', dropDown)
+  // console.log('goals: ', goals)
+
   return (
     <div className='Goals'>
       <div className='goal-header'>
         <h1>Goal</h1>
         <select onChange={(e) => handleOnChange(e.target.value)}>
-          {goals &&
+          {goals.length > 0 && // checking whether goals is empty to prevent any errors while trying to access its elements
             goals.map((goal) => {
-              return <option key={goal.category}>{goal.category}</option>;
+              // console.log("this is the GOAL", goal);
+              return (
+                <>
+                  <option key={goal.category}>{goal.category}</option>
+                </>
+              );
             })}
         </select>
         <span className='filterIcon'>
@@ -65,27 +74,32 @@ const Goals = () => {
         </span>
       </div>
       <div className='donut-div'>
-        <ApexDonut
-          goals={goals}
-          dropDown={dropDown}
-          setReachGoal={setReachGoal}
-        />
-        {goals.map((goal) => {
-          if (goal.category === dropDown) {
-            return (
-              <>
-                <div className='donut-label'>
-                  <h1 id='donut-h1'>${goal.goal}</h1>
-                  {!reachedGoal && (
-                    <p id='donut-p'>
-                      ${goal.goal - goal.total} to {goal.category}
-                    </p>
-                  )}
-                </div>
-              </>
-            );
-          }
-        })}
+        {goals.length > 0 &&
+          dropDown && ( // checking whether goals is empty to prevent any errors while trying to access its elements
+            <>
+              <ApexDonut
+                goals={goals}
+                dropDown={dropDown}
+                setReachGoal={setReachGoal}
+              />
+              {goals.map((goal) => {
+                if (goal.category === dropDown) {
+                  return (
+                    <>
+                      <div className='donut-label'>
+                        <h1 id='donut-h1'>${goal.goal}</h1>
+                        {!reachedGoal && (
+                          <p id='donut-p'>
+                            ${goal.goal - goal.total} to {goal.category}
+                          </p>
+                        )}
+                      </div>
+                    </>
+                  );
+                }
+              })}
+            </>
+          )}
       </div>
     </div>
   );
