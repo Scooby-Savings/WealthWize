@@ -24,6 +24,7 @@ const Goals = () => {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         const goalsFromDB = [];
         data.forEach((element) => {
           const existingGoal = goalsFromDB.find(
@@ -56,11 +57,7 @@ const Goals = () => {
         <select onChange={(e) => handleOnChange(e.target.value)}>
           {goals &&
             goals.map((goal) => {
-              return (
-                <>
-                  <option>{goal.category}</option>
-                </>
-              );
+              return <option key={goal.category}>{goal.category}</option>;
             })}
         </select>
         <span className='filterIcon'>

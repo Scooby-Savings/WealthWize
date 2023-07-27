@@ -104,10 +104,10 @@ dataController.users = async (req, res, next) => {
     const result = await db.query(querystr);
 
     const usersTable = result.rows;
-    // let savingsSum=0;
-    // savingstable.forEach(row=>{
-    //     savingsSum+=row.amount;
-    // })
+    // let savingsSum = 0;
+    // savingstable.forEach((row) => {
+    //   savingsSum += row.amount;
+    // });
 
     res.locals.users = usersTable;
     return next();
@@ -119,21 +119,24 @@ dataController.users = async (req, res, next) => {
 dataController.savingGoals = async (req, res, next) => {
   try {
     if (req.body.action === 'add') {
-      console.log('req.body: ', req.body);
+      // console.log('req.body: ', req.body);
       const { user_id, goal, amount } = req.body;
       const qryStr1 = `INSERT INTO savings_goals (user_id, category, goal)
     VALUES (${user_id}, '${goal}', ${amount});`;
       const qryStr2 = `INSERT INTO savings (user_id, category, amount, date)
     VALUES (${user_id}, '${goal}', 0, current_date);`;
-      const result1 = await db.query(qryStr1);
-      const result2 = await db.query(qryStr2);
+      await db.query(qryStr1);
+      await db.query(qryStr2);
       res.sendStatus(200);
     } else if (req.body.action === 'remove') {
       const { user_id, goal } = req.body;
-      console.log('goal', goal);
+
       const qry = `DELETE FROM savings_goals WHERE user_id = ${user_id} AND category = '${goal}' RETURNING *`;
+      const qry2 = `DELETE FROM savings WHERE user_id = ${user_id} AND category = '${goal}' RETURNING *`;
       const result = await db.query(qry);
-      console.log('deleted:', result);
+      await db.query(qry2);
+      // console.log('deleted:', result);
+      res.sendStatus(200);
     }
   } catch (err) {
     next(err);
