@@ -17,8 +17,12 @@ exports.login = async (req, res, next) => {
     const { username, password } = req.body;
     const queryStr = `SELECT * FROM users WHERE username = '${username}';`;
     const result = await db.query(queryStr);
-    const loginCheck = await bcrypt.compare(password, result.rows[0].password)
+    const loginCheck = await bcrypt.compare(password, result.rows[0].password);
+    const currDate = new Date();
     if (loginCheck) {
+      const updateLoginQuery = `UPDATE users SET lastlogged = '${currDate}' WHERE username = '${req.body.username}';`;
+      db.query(updateLoginQuery);
+
       res.status(200).json({
         status: "success",
         token: generateToken(result),
@@ -37,8 +41,10 @@ exports.googleLogin = async (req, res, next) => {
   try {
     const queryStr = `SELECT * FROM users WHERE username = '${req.body.username}';`;
     const result = await db.query(queryStr);
-    console.log(result.rows)
+    const currDate = new Date();
     if (result.rows.length > 0) {
+      const updateLoginQuery = `UPDATE users SET lastlogged = '${currDate}' WHERE username = '${req.body.username}';`;
+      db.query(updateLoginQuery);
       res.status(200).json({
         status: "success",
         token: generateToken(result),
@@ -53,12 +59,11 @@ exports.googleLogin = async (req, res, next) => {
   }
 };
 
-
 exports.signup = async (req, res, next) => {
   try {
-    const { name, username, password } = req.body;
+    const { name, username, password, email } = req.body;
     const hashed = await bcrypt.hash(password, 10);
-    const queryStrCreate = `INSERT INTO users (name, username, password) VALUES ('${name}', '${username}', '${hashed}');`;
+    const queryStrCreate = `INSERT INTO users (name, username, password, email) VALUES ('${name}', '${username}', '${hashed}', '${email}');`;
     await db.query(queryStrCreate);
     const queryStrRetrieve = `SELECT * FROM users WHERE username = '${username}';`;
     const result = await db.query(queryStrRetrieve);
@@ -75,13 +80,13 @@ exports.signup = async (req, res, next) => {
 
 exports.googleSignup = async (req, res, next) => {
   try {
-    const { name, username } = req.body;
+    const { name, username, email } = req.body;
     const queryStr = `SELECT * FROM users WHERE username = '${username}';`;
     const initialCheck = await db.query(queryStr);
     if (initialCheck.rows.length > 0) {
       console.log("user already exists")
     } else {
-      const queryStrCreate = `INSERT INTO users (name, username, password) VALUES ('${name}', '${username}', '${null}');`;
+      const queryStrCreate = `INSERT INTO users (name, username, password, email) VALUES ('${name}', '${username}', '${null}', '${email}');`;
       await db.query(queryStrCreate);
       const queryStrRetrieve = `SELECT * FROM users WHERE username = '${username}';`;
       const result = await db.query(queryStrRetrieve);
@@ -98,6 +103,17 @@ exports.googleSignup = async (req, res, next) => {
     next(err);
   }
 };
+
+
+
+exports.checkLogs = async (req, res, next) => {
+  const weekEarlier = new Date();
+  weekEarlier.setDate(weekEarlier.getDate() - 7);
+  const weekEarlierQuery = weekEarlier.toLocaleString();
+  const queryStr = `SELECT * FROM users WHERE lastlogged <= ('${weekEarlierQuery}');`;
+  const result = await db.query(queryStr);
+  res.send(result.rows).status(200)
+}
 
 exports.protectRoute = async (req, res, next) => {
   // RETRIEVING TOKEN

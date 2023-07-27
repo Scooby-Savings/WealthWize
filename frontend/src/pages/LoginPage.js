@@ -12,6 +12,8 @@ function LoginPage() {
   const clientId = "1084433748458-f117f0kvq4u7ve0vftgkaa97se04q7h3.apps.googleusercontent.com"
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loginCheck, setLoginCheck] = useState(true);
+  const [googleCheck, setGoogle] = useState(true);
 
 
   const onSuccess = async (res) => {
@@ -31,15 +33,16 @@ function LoginPage() {
             username,
           );
           navigate("/dashboard");
-        }
-    } catch (err) {
-      console.log(err)
-    }
-  };
+        } 
+      } catch (err) {
+        console.log(err)
+      }
+    };
 
-  const onFailure = (res) => {
-    console.log("login failed" , res)
-  }
+    const onFailure = (res) => {
+      setGoogle(false)
+    }
+  
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -65,6 +68,8 @@ function LoginPage() {
           response.data.userID
         );
         navigate("/dashboard");
+      } else {
+        setLoginCheck(false)
       }
     } catch (err) {
       console.log(err);
@@ -117,6 +122,24 @@ function LoginPage() {
           <button className="login-signup-btn" onClick={handleLoginSubmit}>
             Log In
           </button>
+          <div>
+            {googleCheck ? (
+              ""
+            ) : (
+              <div>
+                Google Oauth failure. Please try again.
+              </div>
+            )}
+          </div>
+          <div>
+            {loginCheck ? (
+              ""
+            ) : (
+              <div>
+                Password and/or username incorrect.
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,4 @@
 const db = require("../db/sqlmodel");
-
 const dataController = {};
 
 //savings table
