@@ -1,13 +1,13 @@
-const db = require("../db/sqlmodel");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const { promisify } = require("util");
+const db = require('../db/sqlmodel');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const { promisify } = require('util');
 
 const generateToken = (result) => {
   const token = jwt.sign(
     { user_id: result.rows[0].id },
     process.env.JWT_SECRET,
-    { expiresIn: "1h" }
+    { expiresIn: '1h' }
   );
   return token;
 };
@@ -17,20 +17,20 @@ exports.login = async (req, res, next) => {
     const { username, password } = req.body;
     const queryStr = `SELECT * FROM users WHERE username = '${username}';`;
     const result = await db.query(queryStr);
-    const loginCheck = await bcrypt.compare(password, result.rows[0].password);
+    const loginCheck = await bcrypt.compare(password, result.rows[0].password);;
     const currDate = new Date();
     if (loginCheck) {
       const updateLoginQuery = `UPDATE users SET lastlogged = '${currDate}' WHERE username = '${req.body.username}';`;
       db.query(updateLoginQuery);
 
       res.status(200).json({
-        status: "success",
+        status: 'success',
         token: generateToken(result),
         username: result.rows[0].username,
         userID: result.rows[0].id,
       });
     } else {
-      next("username or password is incorrect");
+      next('username or password is incorrect');
     }
   } catch (err) {
     next(err);
@@ -41,18 +41,18 @@ exports.googleLogin = async (req, res, next) => {
   try {
     const queryStr = `SELECT * FROM users WHERE username = '${req.body.username}';`;
     const result = await db.query(queryStr);
-    const currDate = new Date();
+    console.log(result.rows);
     if (result.rows.length > 0) {
       const updateLoginQuery = `UPDATE users SET lastlogged = '${currDate}' WHERE username = '${req.body.username}';`;
       db.query(updateLoginQuery);
       res.status(200).json({
-        status: "success",
+        status: 'success',
         token: generateToken(result),
         username: result.rows[0].username,
         userID: result.rows[0].id,
       });
     } else {
-      next("You must sign up first.");
+      next('You must sign up first.');
     }
   } catch (err) {
     next(err);
@@ -68,7 +68,7 @@ exports.signup = async (req, res, next) => {
     const queryStrRetrieve = `SELECT * FROM users WHERE username = '${username}';`;
     const result = await db.query(queryStrRetrieve);
     res.status(201).json({
-      status: "success",
+      status: 'success',
       token: generateToken(result),
       username: result.rows[0].username,
       userID: result.rows[0].id,
@@ -84,21 +84,19 @@ exports.googleSignup = async (req, res, next) => {
     const queryStr = `SELECT * FROM users WHERE username = '${username}';`;
     const initialCheck = await db.query(queryStr);
     if (initialCheck.rows.length > 0) {
-      console.log("user already exists")
+      console.log('user already exists');
     } else {
       const queryStrCreate = `INSERT INTO users (name, username, password, email) VALUES ('${name}', '${username}', '${null}', '${email}');`;
       await db.query(queryStrCreate);
       const queryStrRetrieve = `SELECT * FROM users WHERE username = '${username}';`;
       const result = await db.query(queryStrRetrieve);
       res.status(201).json({
-        status: "success",
+        status: 'success',
         token: generateToken(result),
         username: result.rows[0].username,
         userID: result.rows[0].id,
       });
     }
-
-
   } catch (err) {
     next(err);
   }
@@ -117,13 +115,12 @@ exports.checkLogs = async (req, res, next) => {
 
 exports.protectRoute = async (req, res, next) => {
   // RETRIEVING TOKEN
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
 
   // CHECK IF TOKEN EXISTS
   if (!token) {
-    next("no token");
+    next('no token');
   }
 
   // VERIFY TOKEN
@@ -131,7 +128,11 @@ exports.protectRoute = async (req, res, next) => {
 
   //CHECK IS USER FOR THAT TOKEN EXISTS
   const queryStrRetrieve = `SELECT * FROM users WHERE id = '${decoded.user_id}';`;
-  const currUser = await db.query(queryStrRetrieve);
-  if (!currUser) return next("user no longer exists");
+  const resp = await db.query(queryStrRetrieve);
+  if (!resp || resp.rows.length != 1) return next('invalid resP');
+  // console.log(currUser);
+  // console.log(`Handling resp:`);
+  // console.log(resp);
+  res.locals.userID = resp.rows[0].id;
   next();
 };

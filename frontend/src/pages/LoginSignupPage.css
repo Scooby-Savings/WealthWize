@@ -72,3 +72,7 @@
 .first-last input {
   flex: 1;
 }
+
+ button span {
+  background-color: white;
+ }

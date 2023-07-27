@@ -24,7 +24,6 @@
     font-weight: 700;
     line-height: 100%;
     letter-spacing: -0.72px;
-    opacity: 0.4000000059604645;
 }
 
 .sidebar-selection button:active {
@@ -66,7 +65,8 @@
 .category-buttons-expense {
     margin: 20px 0;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    /*grid-template-columns: repeat(3, 1fr);*/
     grid-template-rows: repeat(3, 1fr);
     grid-column-gap: 20px;
     grid-row-gap: 20px;
@@ -118,16 +118,13 @@
     opacity: 0.1;
 }
 
-/* .category-buttons button:hover {
-    border: 5px solid rgba(0, 0, 0, 0.10);
-} */
-
 .category-buttons p {
     padding-top: 16px;
 }
 
 .sidebar-selection {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .submit-button {
@@ -147,5 +144,16 @@
     gap: 8px;
     flex-shrink: 0;
     border-radius: 48px;
-    background: #151515;
+    background: #E65100;
+}
+
+.Sidebar {
+  min-width: 140px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  border-radius: 1.5rem;
+}
+
+.submit-container {
+  display: flex;
+  justify-content: center;
 }

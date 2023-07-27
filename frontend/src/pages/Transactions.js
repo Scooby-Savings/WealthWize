@@ -45,6 +45,7 @@ const Transactions = ({ dataTables }) => {
     }
 
     const categoryMaker = () => {
+        // console.log('transactions: ', transactions)
         const categoryObj = [];
         let total = 0;
 
@@ -56,6 +57,8 @@ const Transactions = ({ dataTables }) => {
 
         setCategories(categoryObj)
         setTotal(total);
+        // console.log('categoryObj: ', categoryObj)
+        // console.log('total: ', total)
     };
 
 
@@ -89,8 +92,14 @@ const Transactions = ({ dataTables }) => {
     // }, [dataTables]);
 
 
+    // console.log('dataTables Budget: ', budget)
     // const month = dateEnd[0];
-
+    // console.log('month ', month)
+    // console.log('d:', d)
+    // console.log('dateEnd:', dateEnd)
+    // console.log('dateStart:', dateStart)
+    // console.log('transactions:', transactions)
+    // console.log('categories: ', categories)
 
     return (
         <div className='Transactions'>
@@ -110,23 +119,27 @@ const Transactions = ({ dataTables }) => {
                     <input id='week-end' type='date' value={dateEnd} onChange={(e) => { handleEnd(e.target.value) }}></input>
                 </div>
             }
-            {filterTransaction && transactions.map((transaction) => {
+            {filterTransaction && transactions.length>0 && transactions.map((transaction) => {
+                // console.log(transaction)
                 return (
                     <>
-                        <div className='single-transaction'>
-                            <div key={transaction.id} className='transaction-firstline'>
+                    {/* added react fragment so the unique key of transaction.id will be applied to the outermost element */}
+                    {/* <React.Fragment key={transaction.id}> */}
+                        <div className='single-transaction' key={transaction.id}>
+                            <div className='transaction-firstline'>
                                 {/* <p>{transaction.item}</p> */}
                                 <p>{transaction.vendorName}</p>
                                 <p id='transaction-category'>{transaction.category}</p>
                             </div>
                             <p >{transaction.amount}</p>
                         </div>
+                    {/* </React.Fragment> */}
                     </>
                 )
             })
             }
-            {filterCategory &&
-                Object.entries(categories).sort((a, b) => b[1] - a[1]).map((category) => {
+            {filterCategory && Object.keys(categories).length > 0 &&
+                Object.entries(categories).sort((a, b) => b[1] - a[1]).map((category, index) => {
 
                     let total = 0;
                     budget.forEach((element) => {
@@ -134,11 +147,12 @@ const Transactions = ({ dataTables }) => {
                             total = element.budget;
                         }
                     });
+                    // console.log(total, category[1])
                     const greenBar = Math.trunc(category[1] / total * 100);
                     const greyBar = 100 - greenBar;
 
                     return (
-                        <div className='categories'>
+                        <div key={index} className='categories'>
                             <div className='category-data'>
                                 <div>{category[0]}</div>
                                 <div>${category[1]}</div>

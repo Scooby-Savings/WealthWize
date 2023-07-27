@@ -20,23 +20,3 @@
   border: none;
   background: #F2F1F0;
 }
-
-.goalForm button {
-  color: #FFF;
-  font-size: 16px;
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 100%;
-  letter-spacing: -0.48px;
-  display: flex;
-  width: 121px;
-  height: 56px;
-  padding: 24px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  border-radius: 48px;
-  background: #151515;
-}
