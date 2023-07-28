@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
-
+import React from 'react';
 import './Overview.css';
+
 const Overview = ({ dataTables }) => {
   const [modal, toggle] = useState(false);
 

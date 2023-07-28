@@ -19,13 +19,18 @@ const Goals = () => {
       },
       body: JSON.stringify({
         userID: auth.userID,
-        // userID: 1,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         const goalsFromDB = [];
+
+        // parse through database results,
+        // build an array of objects, each
+        // object containing goal progress
+        // information, i.e. goal category,
+        // target amount, and current amount
         data.forEach((element) => {
           const existingGoal = goalsFromDB.find(
             (goal) => goal.category === element.category
@@ -40,33 +45,21 @@ const Goals = () => {
             });
           }
         });
-        // console.log('goalsFromDB: ', goalsFromDB)
+
         setGoals(goalsFromDB);
         setDropDown(goalsFromDB[0].category);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  const handleOnChange = (value) => {
-    setDropDown(value);
-  };
-
-  // console.log('dropDown: ', dropDown)
-  // console.log('goals: ', goals)
-
   return (
     <div className='Goals'>
       <div className='goal-header'>
         <h1>Goal</h1>
-        <select onChange={(e) => handleOnChange(e.target.value)}>
+        <select onChange={(e) => setDropDown(e.target.value)}>
           {goals.length > 0 && // checking whether goals is empty to prevent any errors while trying to access its elements
             goals.map((goal) => {
-              // console.log("this is the GOAL", goal);
-              return (
-                <>
-                  <option key={goal.category}>{goal.category}</option>
-                </>
-              );
+              return <option key={goal.category}>{goal.category}</option>;
             })}
         </select>
         <span className='filterIcon'>
@@ -74,34 +67,32 @@ const Goals = () => {
         </span>
       </div>
       <div className='donut-div'>
-        {goals.length > 0 &&
-          dropDown && ( // checking whether goals is empty to prevent any errors while trying to access its elements
-            <>
-              <ApexDonut
-                goals={goals}
-                dropDown={dropDown}
-                setReachGoal={setReachGoal}
-              />
-              {goals.map((goal) => {
-                if (goal.category === dropDown) {
-                  return (
-                    <>
-                      <div className='donut-label'>
-                        <h1 id='donut-h1'>${goal.goal}</h1>
-                        {!reachedGoal && (
-                          <p id='donut-p'>
-                            ${goal.goal - goal.total} to {goal.category}
-                          </p>
-                        )}
-                      </div>
-                    </>
-                  );
-                }
-              })}
-            </>
-          )}
+        {goals.length > 0 && ( // checking whether goals is empty to prevent any errors while trying to access its elements
+          <>
+            <ApexDonut
+              goals={goals}
+              dropDown={dropDown}
+              setReachGoal={setReachGoal}
+            />
+            {goals.map((goal) => {
+              if (goal.category === dropDown) {
+                return (
+                  <div className='donut-label'>
+                    <h1 id='donut-h1'>${goal.goal}</h1>
+                    {!reachedGoal && (
+                      <p id='donut-p'>
+                        ${goal.goal - goal.total} to {goal.category}
+                      </p>
+                    )}
+                  </div>
+                );
+              }
+            })}
+          </>
+        )}
       </div>
     </div>
   );
 };
+
 export default Goals;

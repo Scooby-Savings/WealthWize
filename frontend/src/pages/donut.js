@@ -20,6 +20,7 @@ export default function ApexDonut({ goals, dropDown }) {
       setReachGoal(true);
     }
   }, [series]);
+
   const options = {
     chart: {
       type: 'donut',
@@ -27,6 +28,34 @@ export default function ApexDonut({ goals, dropDown }) {
       height: '800px',
       sparkline: {
         borderWidth: 2, // Set the desired border width here
+      },
+    },
+    tooltip: {
+      enabled: true,
+      enabledOnSeries: undefined,
+      shared: true,
+      followCursor: true,
+      intersect: false,
+      inverseOrder: false,
+      custom: undefined,
+      fillSeriesColor: false,
+      theme: undefined,
+      style: {
+        fontSize: '12px',
+        fontFamily: undefined,
+      },
+    },
+    animations: {
+      enabled: true,
+      easing: 'easeinout',
+      speed: 800,
+      animateGradually: {
+        enabled: true,
+        delay: 150,
+      },
+      dynamicAnimation: {
+        enabled: true,
+        speed: 350,
       },
     },
     responsive: [
@@ -42,15 +71,31 @@ export default function ApexDonut({ goals, dropDown }) {
         },
       },
     ],
-    // colors: ['#1E9700', '#EBEBEB'],
-    colors: ['#bb779b', '#EBEBEB'],
+    colors: ['#df5000', '#ffcf60'],
     stroke: {
       show: false,
       width: 0,
     },
     labels: ['amount', 'total'],
     dataLabels: {
-      enabled: false,
+      enabled: true,
+      background: {
+        enabled: false,
+        foreColor: '#df5000',
+        padding: 2,
+        borderRadius: 2,
+        borderWidth: 1,
+        borderColor: '#df5000',
+        opacity: 0.1,
+        dropShadow: {
+          enabled: true,
+          top: 1,
+          left: 1,
+          blur: 1,
+          color: '#fff',
+          opacity: 0.45,
+        },
+      },
     },
     plotOptions: {
       pie: {
@@ -70,6 +115,7 @@ export default function ApexDonut({ goals, dropDown }) {
       position: 'bottom',
     },
   };
+
   return (
     <div className='donut'>
       {goals && dropDown && (

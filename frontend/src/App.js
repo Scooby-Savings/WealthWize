@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, BrowserRouter, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
 import Signup from "./pages/Signup";
 import LoginPage from "./pages/LoginPage";
 import { AuthContext } from "./authContext";
 import "./index.css";
+import axios from "axios";
 import {gapi} from 'gapi-script';
+import emailjs, {send} from '@emailjs/browser';
 const clientId = "1084433748458-f117f0kvq4u7ve0vftgkaa97se04q7h3.apps.googleusercontent.com";
 
 function App() {
@@ -23,7 +25,6 @@ function App() {
 
     // AUTO LOGOUT TIME SET (YOU CAN PLAY AROUND WITH THAT TIME TO AUTO LOGOUT)
     const hourInMili = 1000 * 60 * 60;
-    // const tenSecInMili = 10000;
 
     // SET TO EITHER EXP TIME FROM PREV OR CURRENT TIME + 1 Hour
     const autoLogoutTime = exp || new Date(new Date().getTime() + hourInMili);
@@ -71,21 +72,60 @@ function App() {
         lsData.userID,
         new Date(lsData.expireTime)
       );
-      // console.log(window.location.pathname);
       if (window.location.pathname === "/") navigate("/dashboard");
     }
   }, []);
 
   useEffect(() => {
     function start(){
+    if(clientId){
       gapi.client.init({
         clientId : clientId,
         scope: ""
       })
-    };
-
+    }
+  };
     gapi.load('client:auth2', start);
   })
+  
+  const checkLogs = async() => {
+    try {
+      const emails = await axios.get("http://localhost:3000/api/users/checkLogs");
+      emails.data.forEach(user => {
+          if(user.email){
+            console.log('sending email to', user.email)
+            sendEmail(user.email, user.lastlogged, send)
+          }
+        });
+    } catch(err) {
+      console.log(err)
+    }
+    return 
+  }
+  useEffect(() => {
+    checkLogs();
+  }, []);
+
+  const sendEmail = (email, time) => {
+    const data = {
+      service_id: 'service_qgmhpqv',
+      template_id: 'template_9zl87uc',
+      user_id: 'Ju-xBlMV8XvFM71-Y',
+      template_params: {
+          'to_name': email,
+          'time_diff': time
+      }
+  };
+  
+    emailjs.send(data.service_id, data.template_id, data.template_params, data.user_id)
+      .then((result) => {
+        console.log('hitting here')
+          console.log(result.text);
+      }, (error) => {
+        console.log('fail here')
+          console.log(error.text);
+      });
+  };
 
   return (
     <>

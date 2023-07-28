@@ -11,9 +11,8 @@ import PlusIcon from '../images/Icons/+.js';
 
 const Dashboard = ({ username }) => {
   const auth = useContext(AuthContext);
-  // console.log(" here is the token", auth);
 
-  //declare states
+  // declare states
   const [dataTables, setDataTables] = useState({});
   const [sidebar, setSidebar] = useState(false);
   const [rerender, setRerender] = useState(false);
@@ -25,7 +24,7 @@ const Dashboard = ({ username }) => {
           headers: { Authorization: `Bearer ${auth.token}` },
         });
         const jsonData = await response.json();
-        console.log(jsonData, 'JSON DATA ABOVE');
+        console.log('JSON DATA', jsonData);
         setDataTables({ ...jsonData });
       } catch (error) {
         console.log('error at fetchTables: ', error);
@@ -33,8 +32,7 @@ const Dashboard = ({ username }) => {
     };
     fetchTables();
   }, [sidebar]);
-  // console.log('setTablessworked', dataTables.budget);
-  // console.log("sidebar: ", sidebar);
+
   return (
     <div className='dashboard'>
       <Navbar username={username} />
@@ -53,7 +51,7 @@ const Dashboard = ({ username }) => {
         type='button'
         id='sidebar-button'
       >
-        <PlusIcon />
+      <PlusIcon />
       </button>
       {sidebar && (
         <Sidebar
@@ -64,7 +62,6 @@ const Dashboard = ({ username }) => {
         />
       )}
     </div>
-
   );
 };
 

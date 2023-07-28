@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
-import landingImage from "./../images/DALL·E 2023-07-07 10.27 1.png";
 import "./LoginSignupPage.css";
 import { AuthContext } from "../authContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { GoogleLogin } from 'react-google-login';
+import scooby from './../images/scooby.png';
 
 function LoginPage() {
   const auth = useContext(AuthContext);
@@ -12,6 +12,8 @@ function LoginPage() {
   const clientId = "1084433748458-f117f0kvq4u7ve0vftgkaa97se04q7h3.apps.googleusercontent.com"
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loginCheck, setLoginCheck] = useState(true);
+  const [googleCheck, setGoogle] = useState(true);
 
 
   const onSuccess = async (res) => {
@@ -25,21 +27,22 @@ function LoginPage() {
             username,
           }
         );
-        if (response.data.token) {
+        if (response.data) {
           auth.login(
             name,
             username,
           );
           navigate("/dashboard");
-        }
-    } catch (err) {
-      console.log(err)
-    }
-  };
+        } 
+      } catch (err) {
+        console.log(err)
+      }
+    };
 
-  const onFailure = (res) => {
-    console.log("login failed" , res)
-  }
+    const onFailure = (res) => {
+      setGoogle(false)
+    }
+  
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -65,6 +68,8 @@ function LoginPage() {
           response.data.userID
         );
         navigate("/dashboard");
+      } else {
+        setLoginCheck(false)
       }
     } catch (err) {
       console.log(err);
@@ -73,15 +78,9 @@ function LoginPage() {
 
   return (
     <div className="login-signup-page-container">
-      <div
-        className="image-box"
-        style={{
-          backgroundImage: `url(${landingImage})`,
-        }}
-      >
-        <div className="website-title">Scooby Savings</div>
-      </div>
-      <div className="form-box">
+      <div className="website-title">Scooby Savings</div>
+      <div className="form-box" style={{
+          backgroundImage: `url(${scooby})`, backgroundRepeat: 'no-repeat'}}>
         <div className="form">
           <div className="form-title">Start Saving</div>
           <div className="login-inputs">
@@ -117,6 +116,24 @@ function LoginPage() {
           <button className="login-signup-btn" onClick={handleLoginSubmit}>
             Log In
           </button>
+          <div>
+            {googleCheck ? (
+              ""
+            ) : (
+              <div>
+                Google Oauth failure. Please try again.
+              </div>
+            )}
+          </div>
+          <div>
+            {loginCheck ? (
+              ""
+            ) : (
+              <div>
+                Password and/or username incorrect.
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
