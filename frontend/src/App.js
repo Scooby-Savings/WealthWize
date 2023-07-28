@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, BrowserRouter, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
 import Signup from "./pages/Signup";
 import LoginPage from "./pages/LoginPage";
@@ -25,7 +25,6 @@ function App() {
 
     // AUTO LOGOUT TIME SET (YOU CAN PLAY AROUND WITH THAT TIME TO AUTO LOGOUT)
     const hourInMili = 1000 * 60 * 60;
-    // const tenSecInMili = 10000;
 
     // SET TO EITHER EXP TIME FROM PREV OR CURRENT TIME + 1 Hour
     const autoLogoutTime = exp || new Date(new Date().getTime() + hourInMili);
@@ -73,7 +72,6 @@ function App() {
         lsData.userID,
         new Date(lsData.expireTime)
       );
-      // console.log(window.location.pathname);
       if (window.location.pathname === "/") navigate("/dashboard");
     }
   }, []);
