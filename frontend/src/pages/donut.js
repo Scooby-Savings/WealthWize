@@ -39,27 +39,98 @@ export default function ApexDonut({ goals, dropDown }) {
         legend: {
           position: 'bottom'
         }
-      }
-    }],
-    colors: ['#bb779b', '#EBEBEB'],
-    stroke: {
-      show: false,
-      width: 0
-    },
-    labels: ['amount', 'total'],
-    dataLabels: {
-      enabled: false,
-    },
-    plotOptions: {
-      pie: {
-        expandOnClick: true,
-        customScale: 1,
-        size: 800,
-        donut: {
-          size: '80%',
-          label: {
-            show: true
-          }
+    }, [series]);
+        const options = {
+            chart: {
+                type: 'donut',
+                // background: 'red',
+                height: '800px',
+                sparkline: {
+                    borderWidth: 2 // Set the desired border width here
+                },
+            },
+            tooltip: {
+                enabled: true,
+                enabledOnSeries: undefined,
+                shared: true,
+                followCursor: true,
+                intersect: false,
+                inverseOrder: false,
+                custom: undefined,
+                fillSeriesColor: false,
+                theme: undefined,
+                style: {
+                  fontSize: '12px',
+                  fontFamily: undefined,
+                },
+            },
+            animations: {
+                enabled: true,
+                easing: 'easeinout',
+                speed: 800,
+                animateGradually: {
+                    enabled: true,
+                    delay: 150
+                },
+                dynamicAnimation: {
+                    enabled: true,
+                    speed: 350
+                }
+            },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }],
+            colors: ['#df5000', '#ffcf60'],
+            stroke: {
+                show: false,
+                width: 0
+            },
+            labels: ['amount', 'total'],
+            dataLabels: {
+                enabled: true,
+                background: {
+                    enabled: false,
+                    foreColor: '#df5000',
+                    padding: 2,
+                    borderRadius: 2,
+                    borderWidth: 1,
+                    borderColor: '#df5000',
+                    opacity: 0.1,
+                    dropShadow: {
+                      enabled: true,
+                      top: 1,
+                      left: 1,
+                      blur: 1,
+                      color: '#fff',
+                      opacity: 0.45
+                    }
+                  },
+            },
+            plotOptions: {
+                pie: {
+                    expandOnClick: true,
+                    customScale: 1,
+                    size: 800,
+                    donut: {
+                        size: '80%',
+                        label: {
+                            show: true
+                        }
+                    }
+                }
+            },
+            legend: {
+                show: false,
+                position: 'bottom'
+            }
         }
       }
     },
