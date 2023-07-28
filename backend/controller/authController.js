@@ -67,7 +67,7 @@ exports.signup = async (req, res, next) => {
     const hashed = await bcrypt.hash(password, 10);
     const queryStrCreate = `INSERT INTO users (name, username, password, email) VALUES ('${name}', '${username}', '${hashed}', '${email}');`;
     await db.query(queryStrCreate);
-    const queryStrRetrieve = `SELECT * FROM users WHERE username = '${username}';`;
+    const queryStrRetrieve = `SELECT * FROM users WHERE username = '${username}' ;`;
     const result = await db.query(queryStrRetrieve);
     res.status(201).json({
       status: 'success',
