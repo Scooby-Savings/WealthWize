@@ -19,8 +19,9 @@ exports.login = async (req, res, next) => {
     const result = await db.query(queryStr);
     const loginCheck = await bcrypt.compare(password, result.rows[0].password);;
     const currDate = new Date();
+    const dateQuery = currDate.getFullYear() + "-" + (currDate.getMonth()+1) + "-" + currDate.getDate();
     if (loginCheck) {
-      const updateLoginQuery = `UPDATE users SET lastlogged = '${currDate}' WHERE username = '${req.body.username}';`;
+      const updateLoginQuery = `UPDATE users SET lastlogged = '${dateQuery}' WHERE username = '${req.body.username}';`;
       db.query(updateLoginQuery);
 
       res.status(200).json({
@@ -41,9 +42,10 @@ exports.googleLogin = async (req, res, next) => {
   try {
     const queryStr = `SELECT * FROM users WHERE username = '${req.body.username}';`;
     const result = await db.query(queryStr);
-    console.log(result.rows);
+    const currDate = new Date();
+    const dateQuery = currDate.getFullYear() + "-" + (currDate.getMonth()+1) + "-" + currDate.getDate();
     if (result.rows.length > 0) {
-      const updateLoginQuery = `UPDATE users SET lastlogged = '${currDate}' WHERE username = '${req.body.username}';`;
+      const updateLoginQuery = `UPDATE users SET lastlogged = '${dateQuery}' WHERE username = '${req.body.username}';`;
       db.query(updateLoginQuery);
       res.status(200).json({
         status: 'success',
@@ -81,7 +83,7 @@ exports.signup = async (req, res, next) => {
 exports.googleSignup = async (req, res, next) => {
   try {
     const { name, username, email } = req.body;
-    const queryStr = `SELECT * FROM users WHERE username = '${username}';`;
+    const queryStr = `SELECT * FROM users WHERE username = '${username}' AND email = '${email}';`;
     const initialCheck = await db.query(queryStr);
     if (initialCheck.rows.length > 0) {
       console.log('user already exists');

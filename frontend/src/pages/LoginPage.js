@@ -27,7 +27,7 @@ function LoginPage() {
             username,
           }
         );
-        if (response.data.token) {
+        if (response.data) {
           auth.login(
             name,
             username,
