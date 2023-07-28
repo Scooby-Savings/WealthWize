@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
-import landingImage from "./../images/DALL·E 2023-07-07 10.27 1.png";
 import "./LoginSignupPage.css";
 import { AuthContext } from "../authContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { GoogleLogin } from 'react-google-login';
+import scooby from './../images/scooby.png';
 
 function LoginPage() {
   const auth = useContext(AuthContext);
@@ -73,15 +73,9 @@ function LoginPage() {
 
   return (
     <div className="login-signup-page-container">
-      <div
-        className="image-box"
-        style={{
-          backgroundImage: `url(${landingImage})`,
-        }}
-      >
-        <div className="website-title">Scooby Savings</div>
-      </div>
-      <div className="form-box">
+      <div className="website-title">Scooby Savings</div>
+      <div className="form-box" style={{
+          backgroundImage: `url(${scooby})`, backgroundRepeat: 'no-repeat'}}>
         <div className="form">
           <div className="form-title">Start Saving</div>
           <div className="login-inputs">
