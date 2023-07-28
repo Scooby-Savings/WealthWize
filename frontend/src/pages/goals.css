@@ -59,11 +59,21 @@ option:checked {
 .goal-header select,
 option:hover {
     cursor: pointer;
+    border-radius: 2rem;
 }
 
-.apexcharts-canvas {
+/* .apexcharts-canvas {
     background-color: transparent;
-    color: blue;
+    color: #ff9f40;
+    border-radius: 2rem;
+} */
+
+.apexcharts-tooltip {
+    /* background: #dfdfdf; */
+    color: black;
+    background-color: #e8e8e8;
+    box-shadow: none;
+    border: 2rem;
 }
 
 .donut-label {
@@ -97,5 +107,5 @@ option:hover {
 }
 
 .apexcharts-legend {
-    background-color: transparent;
+    background-color: black;
 }
