@@ -25,7 +25,10 @@ const Goals = () => {
       .then((data) => {
         console.log(data);
         const goalsFromDB = [];
-
+        // handle case where no info exists in db
+        if (data.length === 0) {
+          return;
+        }
         // parse through database results,
         // build an array of objects, each
         // object containing goal progress

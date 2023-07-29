@@ -18,8 +18,8 @@ module.exports = {
       directory: path.join(__dirname, 'build'),
       publicPath: '/build',
     },
-    client: { webSocketTransport: 'sockjs'},
-    webSocketServer: 'sockjs',
+    // client: { webSocketTransport: 'sockjs'},
+    // webSocketServer: 'sockjs',
     // proxy: {
     //   '/dashboard': {
     //     target: 'http://localhost:3000',
