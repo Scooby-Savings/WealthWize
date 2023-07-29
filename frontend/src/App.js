@@ -81,7 +81,8 @@ function App() {
     if(clientId){
       gapi.client.init({
         clientId : clientId,
-        scope: ""
+        scope: "",
+        audience: ["1084433748458-f117f0kvq4u7ve0vftgkaa97se04q7h3.apps.googleusercontent.com", "apps.googleusercontent.com"],
       })
     }
   };

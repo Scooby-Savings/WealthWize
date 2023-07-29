@@ -42,6 +42,7 @@ exports.googleLogin = async (req, res, next) => {
   try {
     const queryStr = `SELECT * FROM users WHERE username = '${req.body.username}';`;
     const result = await db.query(queryStr);
+    console.log(JSON.stringify(result.rows[0].id))
     const currDate = new Date();
     const dateQuery = currDate.getFullYear() + "-" + (currDate.getMonth()+1) + "-" + currDate.getDate();
     if (result.rows.length > 0) {

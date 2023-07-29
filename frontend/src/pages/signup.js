@@ -56,9 +56,9 @@ const Signup = () => {
         username: res.profileObj.name
       }
     );
-    console.log(response.data)
     if (response.data.username){
       auth.login(
+        response.data.token,
         res.profileObj.givenName,
         res.profileObj.name
       );

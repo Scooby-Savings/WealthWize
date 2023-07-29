@@ -5,13 +5,12 @@ const dataController = {};
 
 //savings table
 dataController.savings = async (req, res, next) => {
-  // console.log("i am in dataController.savings");
   try {
     //change querystr when figured out if we are matching userid or username
-    const querystr = `SELECT * FROM "public"."savings" WHERE user_id = ${res.locals.userID}`;
-    console.log('querystr');
-    console.log(querystr);
-    console.log(req.body);
+    const querystr = `SELECT * FROM "public"."savings" WHERE user_id = ${res.locals.userID};`;
+    // console.log('querystr');
+    // console.log(querystr);
+    // console.log(req.body);
     const result = await db.query(querystr);
 
     const savingsTable = result.rows;
@@ -21,7 +20,7 @@ dataController.savings = async (req, res, next) => {
     // })
 
     res.locals.savings = savingsTable;
-    // console.log(res.locals.savings);
+    console.log(res.locals.savings);
     return next();
   } catch (err) {
     next(err);
@@ -33,7 +32,7 @@ dataController.budget = async (req, res, next) => {
   // console.log('i am in dataController.budget');
   try {
     //change querystr when figured out if we are matching userid or username
-    const querystr = `SELECT * FROM "public"."budget" WHERE user_id = ${res.locals.userID}`;
+    const querystr = `SELECT * FROM "public"."budget" WHERE user_id = ${res.locals.userID};`;
     const result = await db.query(querystr);
     console.log('req.body in datacontroller.budget', req.body);
 
@@ -56,16 +55,16 @@ dataController.savings_goals = async (req, res, next) => {
   // console.log('i am in dataController.savings_goals')
   try {
     let savings_goalsTable;
-    console.log(req.body, 'req.body above');
+    // console.log(req.body, 'req.body above');
     if (req.body.action === 'add') {
       //change querystr when figured out if we are matching userid or username
-      const querystr = `SELECT * FROM "public"."savings_goals" WHERE user_id = ${res.locals.userID}`;
+      const querystr = `SELECT * FROM "public"."savings_goals" WHERE user_id = ${res.locals.userID};`;
       const result = await db.query(querystr);
 
       savings_goalsTable = result.rows;
-      console.log('saving goals table: ', savings_goalsTable);
+      // console.log('saving goals table: ', savings_goalsTable);
     } else if (req.body.action === 'remove') {
-      const querystr = `DELETE * FROM "public"."savings_goals" WHERE user_id = ${res.locals.userID} AND goal = ${req.body.goal} RETURNING *`;
+      const querystr = `DELETE * FROM "public"."savings_goals" WHERE user_id = ${res.locals.userID} AND goal = ${req.body.goal} RETURNING *;`;
       const result = await db.query(querystr);
       console.log('deleted row:', result);
     }
@@ -87,7 +86,7 @@ dataController.transactions = async (req, res, next) => {
   // console.log('i am in dataController.transactions')
   try {
     //change querystr when figured out if we are matching userid or username
-    const querystr = `SELECT * FROM "public"."transactions" WHERE user_id = ${res.locals.userID} ORDER BY date LIMIT 100`;
+    const querystr = `SELECT * FROM "public"."transactions" WHERE user_id = ${res.locals.userID} ORDER BY date LIMIT 100;`;
     const result = await db.query(querystr);
 
     const transactionsTable = result.rows;
@@ -109,7 +108,7 @@ dataController.users = async (req, res, next) => {
   // console.log('i am in dataController.users')
   try {
     //change querystr when figured out if we are matching userid or username
-    const querystr = 'SELECT * FROM "public"."users"';
+    const querystr = 'SELECT * FROM "public"."users";';
     const result = await db.query(querystr);
 
     const usersTable = result.rows;
@@ -141,8 +140,8 @@ dataController.savingGoals = async (req, res, next) => {
     } else if (req.body.action === 'remove') {
       const { user_id, goal } = req.body;
 
-      const qry = `DELETE FROM savings_goals WHERE user_id = ${user_id} AND category = '${goal}' RETURNING *`;
-      const qry2 = `DELETE FROM savings WHERE user_id = ${user_id} AND category = '${goal}' RETURNING *`;
+      const qry = `DELETE FROM savings_goals WHERE user_id = ${user_id} AND category = '${goal}' RETURNING *;`;
+      const qry2 = `DELETE FROM savings WHERE user_id = ${user_id} AND category = '${goal}' RETURNING *;`;
       const result = await db.query(qry);
       await db.query(qry2);
       // console.log('deleted:', result);
@@ -159,7 +158,7 @@ dataController.newExpense = async (req, res, next) => {
     const expense = req.body;
     // console.log(expense);
     querystr = `INSERT INTO transactions (user_id, category, amount, date, "vendorName")
-      VALUES(${expense.userID}, '${expense.category}', ${expense.amount}, '${expense.date}', '${expense.vendorName}')`;
+      VALUES(${expense.userID}, '${expense.category}', ${expense.amount}, '${expense.date}', '${expense.vendorName}');`;
 
     const result = await db.query(querystr);
     return next();

@@ -28,9 +28,11 @@ function LoginPage() {
           }
         );
         if (response.data) {
+          console.log('response is :', response.data)
           auth.login(
+            response.data.token,
             name,
-            username,
+            response.data.userID,
           );
           navigate("/dashboard");
         } 
