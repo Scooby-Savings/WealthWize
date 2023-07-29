@@ -9,7 +9,7 @@ function GoalForm({ setSidebar }) {
   const [amount, setAmount] = useState('');
 
   const handleSubmit = async (event) => {
-    event.preventDefault;
+    // event.preventDefault();
     try {
       // console.log("this is the token", auth.token);
       // console.log(goal, amount);
@@ -28,7 +28,7 @@ function GoalForm({ setSidebar }) {
     setSidebar(false);
   };
   const handleSubmit2 = async (event) => {
-    event.preventDefault;
+    // event.preventDefault;
     try {
       const response = await axios.post(
         'http://localhost:3000/dashboard/savegoal',

@@ -1,11 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Overview.css';
 
 const Overview = ({ dataTables }) => {
-  console.log('OVERVIEW');
-  console.log(dataTables);
-  console.log('dataTables.transactions');
-  console.log(dataTables.transactions);
+  const [modal, toggle] = useState(false);
 
   const accounts = {
     checking: dataTables.transactions?.reduce(
@@ -15,9 +12,7 @@ const Overview = ({ dataTables }) => {
     savings: 0,
   };
 
-
   const total = accounts.savings + accounts.checking;
-
 
   console.log('DATA TABLE SAVINGS', dataTables.savings);
   // const [total, setTotal] = useState(null);
@@ -50,6 +45,9 @@ const Overview = ({ dataTables }) => {
   //     setTotal(accounts.checking + accounts.savings);
   //   }
   // }, [accounts]);
+  const [selectedOption, setSelectedOption] = useState('');
+  const [dropDown, setDropDown] = useState();
+  const [goals, setGoals] = useState([]);
 
   return (
     <div className='Overview'>

@@ -29,7 +29,7 @@ transactionController.goalTracker = async (req, res, next) => {
         AND savings_goals.category = savings.category
         WHERE savings_goals.user_id = ${req.body.userID};`;
     // WHERE savings_goals.user_id = '${req.body.userID}';`;
-
+    // const q2 = `INSERT INTO savings (user_id, category, amount) values (${req.body.user_id}, ${req.body.category}, ${req.body.amount})`;
     const result = await db.query(query);
 
     if (!result) {

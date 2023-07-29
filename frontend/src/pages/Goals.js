@@ -21,32 +21,38 @@ const Goals = () => {
         userID: auth.userID,
       }),
     })
-    .then((response) => response.json())
-    .then((data) => {
-
-      // handle case where no info exists in db
-      if (data.length === 0) {
-        return;
-      }
-
-      const goalsFromDB = [];
-
-      // parse through database results,
-      // build an array of objects, each
-      // object containing goal progress
-      // information, i.e. goal category,
-      // target amount, and current amount
-      data.forEach((element) => {
-        goalsFromDB.push({
-          category: element.category,
-          total: element.amount,
-          goal: element.goal,
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        const goalsFromDB = [];
+        // handle case where no info exists in db
+        if (data.length === 0) {
+          return;
+        }
+        // parse through database results,
+        // build an array of objects, each
+        // object containing goal progress
+        // information, i.e. goal category,
+        // target amount, and current amount
+        data.forEach((element) => {
+          const existingGoal = goalsFromDB.find(
+            (goal) => goal.category === element.category
+          );
+          if (existingGoal) {
+            existingGoal.total += element.amount;
+          } else {
+            goalsFromDB.push({
+              category: element.category,
+              total: element.amount,
+              goal: element.goal,
+            });
+          }
         });
-      });
-      setGoals(goalsFromDB);
-      setDropDown(goalsFromDB[0].category);
-    })
-    .catch((err) => console.log(err));
+
+        setGoals(goalsFromDB);
+        setDropDown(goalsFromDB[0].category);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (
@@ -54,18 +60,16 @@ const Goals = () => {
       <div className='goal-header'>
         <h1>Goal</h1>
         <select onChange={(e) => setDropDown(e.target.value)}>
-          {goals.length > 0 &&  // checking whether goals is empty to prevent any errors while trying to access its elements
+          {goals.length > 0 && // checking whether goals is empty to prevent any errors while trying to access its elements
             goals.map((goal) => {
-              return (
-                <option key={goal.category}>{goal.category}</option>
-              );
+              return <option key={goal.category}>{goal.category}</option>;
             })}
         </select>
         <span className='filterIcon'>
           <FilterIcon />
         </span>
       </div>
-      <div className="donut-div">
+      <div className='donut-div'>
         {goals.length > 0 && ( // checking whether goals is empty to prevent any errors while trying to access its elements
           <>
             <ApexDonut
@@ -76,14 +80,14 @@ const Goals = () => {
             {goals.map((goal) => {
               if (goal.category === dropDown) {
                 return (
-                    <div className="donut-label">
-                      <h1 id="donut-h1">${goal.goal}</h1>
-                      {!reachedGoal && (
-                        <p id="donut-p">
-                          ${goal.goal - goal.total} to {goal.category}
-                        </p>
-                      )}
-                    </div>
+                  <div className='donut-label'>
+                    <h1 id='donut-h1'>${goal.goal}</h1>
+                    {!reachedGoal && (
+                      <p id='donut-p'>
+                        ${goal.goal - goal.total} to {goal.category}
+                      </p>
+                    )}
+                  </div>
                 );
               }
             })}
